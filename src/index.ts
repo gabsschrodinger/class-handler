@@ -1,17 +1,25 @@
-export function NotNull(error: any = new Error()) {
+import { addValidation, baseValidation, initValidation } from "./utils";
+
+import validator from "validator";
+
+export function NotNull(error: Object | string | Error = new Error()) {
   return function (target: any, key: string): void {
-    let value: any = target[key];
+    const validateNotNull = (next: any) =>
+      baseValidation(next === null || next === undefined || next === "", error);
 
-    const setter = (next: any) => {
-      if (value === null || value === undefined || value === "") {
-        throw error;
-      }
+    initValidation(target, key);
 
-      value = next;
-    };
+    addValidation(target, validateNotNull);
+  };
+}
 
-    Object.defineProperty(target, key, {
-      set: setter,
-    });
+export function Email(error: Object | string | Error = new Error()) {
+  return function (target: any, key: string): void {
+    const validateEmail = (next: any) =>
+      baseValidation(!validator.isEmail(next), error);
+
+    initValidation(target, key);
+
+    addValidation(target, validateEmail);
   };
 }
