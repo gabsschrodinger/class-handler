@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc --project tsconfig.prod.json"
+    "coverage": "jest --coverage",
+    "build": "tsc --project tsconfig.prod.json",
+    "publish": "sh publish.sh"
   },
   "author": "Gabriel Fernandes Ribeiro",
   "license": "MIT",

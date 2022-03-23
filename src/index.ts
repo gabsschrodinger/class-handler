@@ -23,3 +23,17 @@ export function Email(error: Object | string | Error = new Error()) {
     addValidation(target, validateEmail);
   };
 }
+
+export function StringType(error: Object | string | Error = new Error()) {
+  return function (target: any, key: string): void {
+    const validateStringType = (next: any) =>
+      baseValidation(
+        !(typeof next == "string" || next instanceof String),
+        error
+      );
+
+    initValidation(target, key);
+
+    addValidation(target, validateStringType);
+  };
+}
