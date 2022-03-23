@@ -1,6 +1,6 @@
 {
   "name": "class-handler",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Decorators to help with class handling",
   "main": "src/index.ts",
   "repository": {
