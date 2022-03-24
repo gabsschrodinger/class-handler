@@ -2,6 +2,7 @@
 
 Provides decorators to help with class handling.
 Uses [validator](https://www.npmjs.com/package/validator).
+Made with TypeScript, compiled to common JavaScript with d.ts files.
 
 ## How to install
 

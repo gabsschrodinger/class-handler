@@ -1,4 +1,4 @@
-import { IS_NULL, NOT_EMAIL, NOT_STRING } from "./conditions";
+import { IS_NULL, NOT_EMAIL, NOT_JSON_STRING, NOT_STRING } from "./conditions";
 
 import { validationDecorator } from "./utils";
 
@@ -21,6 +21,13 @@ export function Email(error: Object | string | Error = new Error()) {
  */
 export function StringType(error: Object | string | Error = new Error()) {
   return validationDecorator(NOT_STRING, error);
+}
+
+/**
+ * Validate if a property is a valid JSON string when the class is instantiated.
+ */
+export function JsonString(error: Object | string | Error = new Error()) {
+  return validationDecorator(NOT_JSON_STRING, error);
 }
 
 /**

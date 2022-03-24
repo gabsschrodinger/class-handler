@@ -1,13 +1,13 @@
-import { StringType } from "../src";
-import { faker } from "@faker-js/faker";
-
-describe("StringType", () => {
+export const validateDecorator = (
+  TestedDecorator: Function,
+  conditions: Array<any>
+) => {
   it("should throw specified error object when it receives an object", () => {
     let exception: any;
     const errorObj = { error: "some error" };
 
     class Test {
-      @StringType(errorObj)
+      @TestedDecorator(errorObj)
       anyField: any;
 
       constructor(anyField?: any) {
@@ -16,7 +16,7 @@ describe("StringType", () => {
     }
 
     try {
-      new Test(faker.datatype.number(10));
+      new Test(conditions[0] ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -29,7 +29,7 @@ describe("StringType", () => {
     const errorMessage = "some message";
 
     class Test {
-      @StringType(errorMessage)
+      @TestedDecorator(errorMessage)
       anyField: any;
 
       constructor(anyField?: any) {
@@ -38,7 +38,7 @@ describe("StringType", () => {
     }
 
     try {
-      new Test(faker.datatype.boolean());
+      new Test(conditions[1] ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -50,7 +50,7 @@ describe("StringType", () => {
     let exception: any;
 
     class Test {
-      @StringType()
+      @TestedDecorator()
       anyField: any;
 
       constructor(anyField?: any) {
@@ -59,7 +59,7 @@ describe("StringType", () => {
     }
 
     try {
-      new Test(JSON.parse(faker.datatype.json()));
+      new Test(conditions[2] ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -67,11 +67,11 @@ describe("StringType", () => {
     expect(exception).toEqual(new Error());
   });
 
-  it("should not throw error when field is with string", () => {
+  it("should not throw error when field is filled with a valid input", () => {
     let exception: any;
 
     class Test {
-      @StringType()
+      @TestedDecorator()
       anyField: any;
 
       constructor(anyField?: any) {
@@ -80,11 +80,11 @@ describe("StringType", () => {
     }
 
     try {
-      new Test(faker.random.word());
+      new Test(conditions[3] ?? undefined);
     } catch (error) {
       exception = error;
     }
 
     expect(exception).toBeUndefined();
   });
-});
+};

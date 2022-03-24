@@ -1,6 +1,6 @@
 function initValidation(target: any, key: string) {
-  if (!Object?.getOwnPropertyDescriptor(target, "validations")) {
-    Object?.defineProperty(target, "validations", {
+  if (!Object?.getOwnPropertyDescriptor(target, key + "Validations")) {
+    Object?.defineProperty(target, key + "Validations", {
       value: [],
       configurable: true,
       writable: true,
@@ -10,7 +10,7 @@ function initValidation(target: any, key: string) {
       set: function (value) {
         const validationsArr = Object?.getOwnPropertyDescriptor(
           target,
-          "validations"
+          key + "Validations"
         )?.value;
 
         for (let i = 0; i < validationsArr.length; i++) {
@@ -34,8 +34,8 @@ function baseValidation(condition: boolean, error: Object | string | Error) {
   }
 }
 
-function addValidation(target: any, validation: Function) {
-  Object?.getOwnPropertyDescriptor(target, "validations")?.value?.push(
+function addValidation(target: any, key: string, validation: Function) {
+  Object?.getOwnPropertyDescriptor(target, key + "Validations")?.value?.push(
     validation
   );
 }
@@ -49,6 +49,6 @@ export function validationDecorator(
 
     initValidation(target, key);
 
-    addValidation(target, validation);
+    addValidation(target, key, validation);
   };
 }
