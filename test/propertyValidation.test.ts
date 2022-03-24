@@ -1,7 +1,11 @@
 import { Email, JsonString, NotNull, StringType } from "../src";
+import { IS_JSON_STRING, NOT_STRING } from "../src/conditions";
+import {
+  validateCustomDecorator,
+  validateDecorator,
+} from "./helpers/propertyValidation";
 
 import { faker } from "@faker-js/faker";
-import { validateDecorator } from "./helpers/propertyValidation";
 
 describe("Property Validation Decorators", () => {
   describe("NotNull", () => {
@@ -38,5 +42,31 @@ describe("Property Validation Decorators", () => {
       faker.random.word(),
       faker.datatype.json(),
     ]);
+  });
+
+  describe("CustomValidation", () => {
+    describe("Combining validations", () => {
+      const MY_ERROR_CONDITION = (value: any): boolean =>
+        IS_JSON_STRING(value) || NOT_STRING(value);
+
+      validateCustomDecorator(MY_ERROR_CONDITION, [
+        faker.datatype.number(),
+        null,
+        faker.datatype.json(),
+        faker.random.word(),
+      ]);
+    });
+
+    describe("Creating own validation", () => {
+      const errorStr = faker.random.word();
+      const MY_ERROR_CONDITION = (value: any): boolean => value === errorStr;
+
+      validateCustomDecorator(MY_ERROR_CONDITION, [
+        errorStr,
+        errorStr,
+        errorStr,
+        undefined,
+      ]);
+    });
   });
 });
