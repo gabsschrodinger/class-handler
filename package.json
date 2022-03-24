@@ -11,7 +11,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "build": "tsc --project tsconfig.prod.json",
-    "publish": "sh publish.sh"
+    "publish:setup": "sh publish-setup.sh"
   },
   "author": "Gabriel Fernandes Ribeiro",
   "license": "MIT",

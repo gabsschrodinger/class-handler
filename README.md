@@ -26,7 +26,7 @@ class SomeClass {
   @NotNull({ error: "some-error" })
   someField: string;
 
-  constructor(someField: string) {
+  constructor(someField?: string) {
     this.someField = someField;
   }
 }

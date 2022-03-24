@@ -1,4 +1,4 @@
-export function initValidation(target: any, key: string) {
+function initValidation(target: any, key: string) {
   if (!Object?.getOwnPropertyDescriptor(target, "validations")) {
     Object?.defineProperty(target, "validations", {
       value: [],
@@ -24,10 +24,7 @@ export function initValidation(target: any, key: string) {
   }
 }
 
-export function baseValidation(
-  condition: boolean,
-  error: Object | string | Error
-) {
+function baseValidation(condition: boolean, error: Object | string | Error) {
   if (condition) {
     if (typeof error === "string" || error instanceof String) {
       throw new Error(error as string);
@@ -37,8 +34,21 @@ export function baseValidation(
   }
 }
 
-export function addValidation(target: any, validation: Function) {
+function addValidation(target: any, validation: Function) {
   Object?.getOwnPropertyDescriptor(target, "validations")?.value?.push(
     validation
   );
+}
+
+export function validationDecorator(
+  condition: (value: any) => boolean,
+  error: Object | string | Error
+) {
+  return function (target: any, key: string): void {
+    const validation = (value: any) => baseValidation(condition(value), error);
+
+    initValidation(target, key);
+
+    addValidation(target, validation);
+  };
 }

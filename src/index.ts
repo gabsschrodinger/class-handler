@@ -1,39 +1,34 @@
-import { addValidation, baseValidation, initValidation } from "./utils";
+import { IS_NULL, NOT_EMAIL, NOT_STRING } from "./conditions";
 
-import validator from "validator";
+import { validationDecorator } from "./utils";
 
+/**
+ * Validate if a property is not null when the class is instantiated.
+ */
 export function NotNull(error: Object | string | Error = new Error()) {
-  return function (target: any, key: string): void {
-    const validateNotNull = (next: any) =>
-      baseValidation(next === null || next === undefined || next === "", error);
-
-    initValidation(target, key);
-
-    addValidation(target, validateNotNull);
-  };
+  return validationDecorator(IS_NULL, error);
 }
 
+/**
+ * Validate if a property is a valid email when the class is instantiated.
+ */
 export function Email(error: Object | string | Error = new Error()) {
-  return function (target: any, key: string): void {
-    const validateEmail = (next: any) =>
-      baseValidation(!validator.isEmail(next), error);
-
-    initValidation(target, key);
-
-    addValidation(target, validateEmail);
-  };
+  return validationDecorator(NOT_EMAIL, error);
 }
 
+/**
+ * Validate if a property is of type string when the class is instantiated.
+ */
 export function StringType(error: Object | string | Error = new Error()) {
-  return function (target: any, key: string): void {
-    const validateStringType = (next: any) =>
-      baseValidation(
-        !(typeof next == "string" || next instanceof String),
-        error
-      );
+  return validationDecorator(NOT_STRING, error);
+}
 
-    initValidation(target, key);
-
-    addValidation(target, validateStringType);
-  };
+/**
+ * Validate a property according to the received condition callback when the class is instantiated.
+ */
+export function CustomValidation(
+  condition: (value: any) => boolean,
+  error: Object | string | Error = new Error()
+) {
+  return validationDecorator(condition, error);
 }
