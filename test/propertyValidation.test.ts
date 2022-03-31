@@ -1,5 +1,5 @@
 import { Email, JsonString, NotNull, StringType } from "../src";
-import { IS_JSON_STRING, NOT_STRING } from "../src/conditions";
+import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions";
 import {
   validateCustomDecorator,
   validateDecorator,
