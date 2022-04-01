@@ -9,39 +9,39 @@ import { faker } from "@faker-js/faker";
 
 describe("Property Validation Decorators", () => {
   describe("NotNull", () => {
-    validateDecorator(NotNull, [
-      undefined,
-      null,
-      undefined,
-      faker.random.word(),
-    ]);
+    validateDecorator(NotNull, {
+      errorCondition1: undefined,
+      errorCondition2: null,
+      errorCondition3: undefined,
+      successCondition: faker.random.word(),
+    });
   });
 
   describe("Email", () => {
-    validateDecorator(Email, [
-      faker.random.word(),
-      null,
-      faker.datatype.uuid(),
-      faker.internet.email(),
-    ]);
+    validateDecorator(Email, {
+      errorCondition1: faker.random.word(),
+      errorCondition2: null,
+      errorCondition3: faker.datatype.uuid(),
+      successCondition: faker.internet.email(),
+    });
   });
 
   describe("StringType", () => {
-    validateDecorator(StringType, [
-      faker.datatype.array(),
-      null,
-      faker.datatype.number(),
-      faker.random.word(),
-    ]);
+    validateDecorator(StringType, {
+      errorCondition1: faker.datatype.array(),
+      errorCondition2: null,
+      errorCondition3: faker.datatype.number(),
+      successCondition: faker.random.word(),
+    });
   });
 
   describe("JsonString", () => {
-    validateDecorator(JsonString, [
-      faker.datatype.number(),
-      null,
-      faker.random.word(),
-      faker.datatype.json(),
-    ]);
+    validateDecorator(JsonString, {
+      errorCondition1: faker.datatype.number(),
+      errorCondition2: null,
+      errorCondition3: faker.random.word(),
+      successCondition: faker.datatype.json(),
+    });
   });
 
   describe("CustomValidation", () => {
@@ -49,24 +49,24 @@ describe("Property Validation Decorators", () => {
       const MY_ERROR_CONDITION = (value: any): boolean =>
         IS_JSON_STRING(value) || NOT_STRING(value);
 
-      validateCustomDecorator(MY_ERROR_CONDITION, [
-        faker.datatype.number(),
-        null,
-        faker.datatype.json(),
-        faker.random.word(),
-      ]);
+      validateCustomDecorator(MY_ERROR_CONDITION, {
+        errorCondition1: faker.datatype.number(),
+        errorCondition2: null,
+        errorCondition3: faker.datatype.json(),
+        successCondition: faker.random.word(),
+      });
     });
 
     describe("Creating own validation", () => {
       const errorStr = faker.random.word();
       const MY_ERROR_CONDITION = (value: any): boolean => value === errorStr;
 
-      validateCustomDecorator(MY_ERROR_CONDITION, [
-        errorStr,
-        errorStr,
-        errorStr,
-        undefined,
-      ]);
+      validateCustomDecorator(MY_ERROR_CONDITION, {
+        errorCondition1: errorStr,
+        errorCondition2: errorStr,
+        errorCondition3: errorStr,
+        successCondition: undefined,
+      });
     });
   });
 });

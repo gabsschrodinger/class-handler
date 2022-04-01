@@ -1,8 +1,20 @@
 import { CustomValidation } from "../../src";
 
+interface TestConditions {
+  errorCondition1: any;
+  errorCondition2: any;
+  errorCondition3: any;
+  successCondition: any;
+}
+
 export const validateDecorator = (
   TestedDecorator: Function,
-  conditions: Array<any>
+  {
+    errorCondition1,
+    errorCondition2,
+    errorCondition3,
+    successCondition,
+  }: TestConditions
 ) => {
   it("should throw specified error object when it receives an object", () => {
     let exception: any;
@@ -18,7 +30,7 @@ export const validateDecorator = (
     }
 
     try {
-      new Test(conditions[0] ?? undefined);
+      new Test(errorCondition1 ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -40,7 +52,7 @@ export const validateDecorator = (
     }
 
     try {
-      new Test(conditions[1] ?? undefined);
+      new Test(errorCondition2 ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -61,7 +73,7 @@ export const validateDecorator = (
     }
 
     try {
-      new Test(conditions[2] ?? undefined);
+      new Test(errorCondition3 ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -82,7 +94,7 @@ export const validateDecorator = (
     }
 
     try {
-      new Test(conditions[3] ?? undefined);
+      new Test(successCondition ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -93,7 +105,12 @@ export const validateDecorator = (
 
 export const validateCustomDecorator = (
   decoratorCondition: (value: any) => boolean,
-  conditions: Array<any>
+  {
+    errorCondition1,
+    errorCondition2,
+    errorCondition3,
+    successCondition,
+  }: TestConditions
 ) => {
   it("should throw specified error object when it receives an object", () => {
     let exception: any;
@@ -109,7 +126,7 @@ export const validateCustomDecorator = (
     }
 
     try {
-      new Test(conditions[0] ?? undefined);
+      new Test(errorCondition1 ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -131,7 +148,7 @@ export const validateCustomDecorator = (
     }
 
     try {
-      new Test(conditions[1] ?? undefined);
+      new Test(errorCondition2 ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -152,7 +169,7 @@ export const validateCustomDecorator = (
     }
 
     try {
-      new Test(conditions[2] ?? undefined);
+      new Test(errorCondition3 ?? undefined);
     } catch (error) {
       exception = error;
     }
@@ -173,7 +190,7 @@ export const validateCustomDecorator = (
     }
 
     try {
-      new Test(conditions[3] ?? undefined);
+      new Test(successCondition ?? undefined);
     } catch (error) {
       exception = error;
     }
