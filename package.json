@@ -11,8 +11,8 @@
     "test": "jest",
     "mutation": "npx stryker run",
     "coverage": "jest --coverage",
-    "build": "tsc --project tsconfig.prod.json",
-    "publish:setup": "sh publish-setup.sh"
+    "build:raw": "tsc --project tsconfig.prod.json",
+    "build": "sh build.sh"
   },
   "author": "Gabriel Fernandes Ribeiro",
   "license": "MIT",

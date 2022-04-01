@@ -3,7 +3,7 @@ set -e
 
 rm -rf dist
 
-npm run build
+npm run build:raw
 
 cp package.json ./dist
 cp package-lock.json ./dist
