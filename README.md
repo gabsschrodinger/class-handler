@@ -2,7 +2,7 @@
 
 Provides decorators to help with class handling.
 Uses [validator](https://www.npmjs.com/package/validator).
-Made with TypeScript, compiled to common JavaScript with d.ts files.
+Made with TypeScript, compiled to common JavaScript with d.ts files. Extensively tested with jest and stryker.
 
 ## How to install
 
@@ -18,7 +18,15 @@ YARN:
 yarn add class-handler
 ```
 
-## Examples
+## Property Decorators
+
+The library provides a few ready-to-use property decorators, as well as tools to easily build your own. Currently we only have validation decorators, which have 2 ways of working:
+
+- If you don't use the CatchMany class decorator, your instances will be validated by your decorators as soon as you instantiate them, throwing the first error that is found.
+
+- If you use property decorators along with the CatchMany decorator, your errors will be stored within each instance, and the errors will only be thrown when you call the function "validateInstance" for each given instance.
+
+### Example 1: without CatchMany
 
 ```typescript
 import { NotNull } from "class-handler";
@@ -40,8 +48,167 @@ try {
   exception = error;
 }
 
-console.log(exception); // { error: 'some-error' }
+console.log(exception); // { error: "some-error" }
 ```
+
+### Example 2: with CatchMany
+
+```typescript
+import {
+  NotNull,
+  CatchMany,
+  StringType,
+  validateInstance,
+} from "class-handler";
+
+@CatchMany({ errorMessages: [] }, "errorMessages")
+class SomeClass {
+  @NotNull("some field should not be null")
+  @StringType("some field should be a string type")
+  someField?: any;
+
+  constructor(someField?: any) {
+    this.someField = someField;
+  }
+}
+
+let exception;
+const someInstance = new SomeClass();
+
+try {
+  validateInstance(someInstance);
+} catch (error) {
+  exception = error;
+}
+
+console.log(exception); // { errorMessages: ["some field should be a string type", "some field should not be null"] }
+```
+
+### Built in property decorators
+
+| Decorator  | Error condition                                              |
+| ---------- | ------------------------------------------------------------ |
+| NotNull    | null, undefined or empty string                              |
+| Email      | not matching the email string pattern (string@string.string) |
+| StringType | not being a string type according to typescript/javascript   |
+| JsonString | not being a string parsable to a JSON object/array           |
+
+### CustomValidation decorator
+
+The CustomValidation decorator receives a condition, which is a function that receives the value (its only argument) of type any, returning true for the error case and false for success.
+
+### Example
+
+```typescript
+import { CustomValidation } from "class-handler";
+
+const isLessThanTenValidation = (value: any) => value < 10;
+
+class SomeClass {
+  @CustomValidation(isLessThanTenValidation, { error: "Value is less than 10" })
+  someField: number;
+
+  constructor(someField: number) {
+    this.someField = someField;
+  }
+}
+
+let exception: any;
+
+try {
+  new SomeClass(5);
+} catch (error) {
+  exception = error;
+}
+
+console.log(exception); // { error: "Value is less than 10" }
+```
+
+### validationDecorator function
+
+With the validationDecorator function, you can easily create your own property validation decorator. The function receives 2 arguments: the first one is the validation function/callback, exactly like in the CustomValidation decorator, and the second one is the error you want to throw, which can be an Object, a string or an Error instance.
+
+### Example
+
+```typescript
+import { validationDecorator } from "class-handler";
+
+const isLessThanTenValidation = (value: any) => value < 10;
+
+const GreaterThanTen = validationDecorator(isLessThanTenValidation, {
+  error: "Value is less than 10",
+});
+
+class SomeClass {
+  @GreaterThanTen
+  someField: number;
+
+  constructor(someField: number) {
+    this.someField = someField;
+  }
+}
+
+let exception: any;
+
+try {
+  new SomeClass(5);
+} catch (error) {
+  exception = error;
+}
+
+console.log(exception); // { error: "Value is less than 10" }
+```
+
+Another way to use the validationDecorator function is returning the function, instead of its result. This is useful in case you want to pass parameters to your own decorator.
+
+### Example
+
+```typescript
+import { validationDecorator } from "class-handler";
+
+const isLessThanTenValidation = (value: any) => value < 10;
+
+function GreaterThanTen(error: Object | string | Error) {
+  return validationDecorator(isLessThanTenValidation, error);
+}
+
+class SomeClass {
+  @GreaterThanTen({
+    error: "Value is less than 10",
+  })
+  someField: number;
+
+  constructor(someField: number) {
+    this.someField = someField;
+  }
+}
+
+let exception: any;
+
+try {
+  new SomeClass(5);
+} catch (error) {
+  exception = error;
+}
+
+console.log(exception); // { error: "Value is less than 10" }
+```
+
+Both of these alternative decorators work the same way as the ready-to-use decorators, including with and without the CatchMany decorator.
+
+## Class Decorators
+
+Currently we only have 1 class decorator, which is the CatchMany. This decorator modify the behaviour of the property decorators.
+
+Without the CatchMany decorator, the validation decorators will throw the first error they found as soon as the class is instantiated.
+
+With the CatchMany decorator, the errors will be stored in each given instance at the moment they are instantiate, in the model you defined. The errors will be thrown when you call the validateInstance function, passing the given instance as the parameter.
+
+The first CatchMany argument is the error object you want to throw in case of error(s). It's important to notice that one of this object fields must be an array. Each property decorator that cactches an error will push its error string into that array.
+
+That means that when you use the CatchMany decorator, you must pass only strings for your property decorator. If you use the CatchMany decorator and pass an Object for your property decorators, you'll receive an error.
+
+For usage examples, check "Example 1: without CatchMany" and "Example 2: with CatchMany" at the Property Decorators section.
 
 ## Contact
 
