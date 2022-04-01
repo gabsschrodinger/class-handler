@@ -1,19 +1,20 @@
 export const getProp = (
-  instanceTarget: Object,
+  target: Object,
   key: string
-): PropertyDescriptor => Object.getOwnPropertyDescriptor(instanceTarget, key);
+): PropertyDescriptor | undefined =>
+  Object.getOwnPropertyDescriptor(target, key);
 
-export const getPropValue = (instanceTarget: Object, key: string): any =>
-  getProp(instanceTarget, key)?.value;
+export const getPropValue = (target: Object, key: string): any =>
+  getProp(target, key)?.value;
 
 export const setPropValue = (
-  instanceTarget: Object,
+  target: Object,
   key: string,
   value: any,
   configurable: boolean = false,
   writable: boolean = false
 ): void => {
-  Object.defineProperty(instanceTarget, key, {
+  Object.defineProperty(target, key, {
     value,
     configurable,
     writable,
@@ -21,20 +22,20 @@ export const setPropValue = (
 };
 
 export const setPropSetter = (
-  instanceTarget: Object,
+  target: Object,
   key: string,
   setter: (value: any) => void
 ): void => {
-  Object.defineProperty(instanceTarget, key, {
+  Object.defineProperty(target, key, {
     set: setter,
     configurable: true,
   });
 };
 
 export const pushIntoProp = (
-  instanceTarget: Object,
+  target: Object,
   key: string,
   values: Array<any>
 ): void => {
-  Object.getOwnPropertyDescriptor(instanceTarget, key)?.value?.push(...values);
+  Object.getOwnPropertyDescriptor(target, key)?.value?.push(...values);
 };

@@ -23,7 +23,7 @@ function processPropValidations(
     try {
       propValidations[i](propValue);
     } catch (exception) {
-      if (catchMany) {
+      if (catchMany && exception instanceof Error) {
         errorsArray.push(exception.message);
       } else {
         throw exception;
@@ -34,14 +34,16 @@ function processPropValidations(
   return errorsArray;
 }
 
-function getValidationSetter(instanceTarget: Object, key: string) {
-  return function (value: any): void {
+function getValidationSetter(
+  prototypeTarget: Record<string, any>,
+  key: string
+) {
+  return function (this: Record<string, any>, value: any): void {
     const propValidations: Array<Function> = getPropValue(
-      instanceTarget,
+      prototypeTarget,
       key + "Validations"
     );
-    const catchMany: boolean =
-      instanceTarget.constructor.prototype[CATCH_MANY_PROP];
+    const catchMany: boolean = prototypeTarget[CATCH_MANY_PROP];
 
     const errorsArray: Array<string> = processPropValidations(
       value,
@@ -55,24 +57,23 @@ function getValidationSetter(instanceTarget: Object, key: string) {
   };
 }
 
-function initValidation(instanceTarget: Object, key: string) {
-  if (getProp(instanceTarget, key + "Validations")) return;
+function initValidation(prototypeTarget: Object, key: string) {
+  if (getProp(prototypeTarget, key + "Validations")) return;
 
-  setPropValue(instanceTarget, key + "Validations", [], true, true);
+  setPropValue(prototypeTarget, key + "Validations", [], true, true);
 
-  const newSetter = getValidationSetter(instanceTarget, key);
-  setPropSetter(instanceTarget, key, newSetter);
+  const newSetter = getValidationSetter(prototypeTarget, key);
+  setPropSetter(prototypeTarget, key, newSetter);
 }
 
-function addErrorToMessages(
-  instanceTarget: Object,
-  errorMessages: Array<string>
-) {
-  const instanceError: Object = getPropValue(instanceTarget, INSTANCE_ERROR);
-  const field: string =
-    instanceTarget.constructor.prototype[MESSAGES_FIELD_PROP];
-  const errorObj: Object = {
-    ...instanceTarget.constructor.prototype[ERROR_PROP],
+function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
+  const instanceError: Record<string, any> = getPropValue(
+    instance,
+    INSTANCE_ERROR
+  );
+  const field: string = instance.constructor.prototype[MESSAGES_FIELD_PROP];
+  const errorObj: Record<string, any> = {
+    ...instance.constructor.prototype[ERROR_PROP],
   };
 
   const oldMessages: Array<string> = instanceError
@@ -82,7 +83,7 @@ function addErrorToMessages(
 
   const newErrorObj = { ...instanceError, [field]: newMessages };
 
-  setPropValue(instanceTarget, INSTANCE_ERROR, newErrorObj, true, true);
+  setPropValue(instance, INSTANCE_ERROR, newErrorObj, true, true);
 }
 
 function baseValidation(condition: boolean, error: Object | string | Error) {
@@ -95,19 +96,23 @@ function baseValidation(condition: boolean, error: Object | string | Error) {
   }
 }
 
-function addValidation(target: any, key: string, validation: Function) {
-  pushIntoProp(target, key + "Validations", [validation]);
+function addValidation(
+  prototypeTarget: Object,
+  key: string,
+  validation: Function
+) {
+  pushIntoProp(prototypeTarget, key + "Validations", [validation]);
 }
 
 export function validationDecorator(
   condition: (value: any) => boolean,
   error: Object | string | Error
 ) {
-  return function (instanceTarget: Object, key: string): void {
+  return function (prototypeTarget: Object, key: string): void {
     const validation = (value: any) => baseValidation(condition(value), error);
 
-    initValidation(instanceTarget, key);
+    initValidation(prototypeTarget, key);
 
-    addValidation(instanceTarget, key, validation);
+    addValidation(prototypeTarget, key, validation);
   };
 }
