@@ -11,8 +11,8 @@ export const setPropValue = (
   target: Object,
   key: string,
   value: any,
-  configurable: boolean = false,
-  writable: boolean = false
+  configurable: boolean,
+  writable: boolean
 ): void => {
   Object.defineProperty(target, key, {
     value,

@@ -11,6 +11,12 @@ export const NOT_EMAIL = (value: any): boolean => {
 export const NOT_STRING = (value: any): boolean =>
   !(typeof value == "string" || value instanceof String);
 
+export const NOT_NUMBER = (value: any): boolean =>
+  !(typeof value == "number" || value instanceof Number);
+
+export const NOT_BOOLEAN = (value: any): boolean =>
+  !(typeof value == "boolean" || value instanceof Boolean);
+
 export const IS_NULL = (value: any): boolean =>
   value === null || value === undefined || value === "";
 

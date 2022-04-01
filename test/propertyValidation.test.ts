@@ -1,4 +1,11 @@
-import { Email, JsonString, NotNull, StringType } from "../src";
+import {
+  BooleanType,
+  Email,
+  JsonString,
+  NotNull,
+  NumberType,
+  StringType,
+} from "../src";
 import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions";
 import {
   validateCustomDecorator,
@@ -32,6 +39,24 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.number(),
       successCondition: faker.random.word(),
+    });
+  });
+
+  describe("NumberType", () => {
+    validateDecorator(NumberType, {
+      errorCondition1: faker.datatype.array(),
+      errorCondition2: null,
+      errorCondition3: faker.random.word(),
+      successCondition: faker.datatype.number(),
+    });
+  });
+
+  describe("BooleanType", () => {
+    validateDecorator(BooleanType, {
+      errorCondition1: faker.datatype.array(),
+      errorCondition2: null,
+      errorCondition3: faker.random.word(),
+      successCondition: faker.datatype.boolean(),
     });
   });
 

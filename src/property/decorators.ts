@@ -1,4 +1,11 @@
-import { IS_NULL, NOT_EMAIL, NOT_JSON_STRING, NOT_STRING } from "./conditions";
+import {
+  IS_NULL,
+  NOT_BOOLEAN,
+  NOT_EMAIL,
+  NOT_JSON_STRING,
+  NOT_NUMBER,
+  NOT_STRING,
+} from "./conditions";
 
 import { validationDecorator } from "./utils";
 
@@ -21,6 +28,20 @@ export function Email(error: Object | string | Error = new Error()) {
  */
 export function StringType(error: Object | string | Error = new Error()) {
   return validationDecorator(NOT_STRING, error);
+}
+
+/**
+ * Validate if a property is of type number when the class is instantiated.
+ */
+export function NumberType(error: Object | string | Error = new Error()) {
+  return validationDecorator(NOT_NUMBER, error);
+}
+
+/**
+ * Validate if a property is of type boolean when the class is instantiated.
+ */
+export function BooleanType(error: Object | string | Error = new Error()) {
+  return validationDecorator(NOT_BOOLEAN, error);
 }
 
 /**

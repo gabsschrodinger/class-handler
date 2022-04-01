@@ -86,12 +86,14 @@ console.log(exception); // { errorMessages: ["some field should be a string type
 
 ### Built in property decorators
 
-| Decorator  | Error condition                                              |
-| ---------- | ------------------------------------------------------------ |
-| NotNull    | null, undefined or empty string                              |
-| Email      | not matching the email string pattern (string@string.string) |
-| StringType | not being a string type according to typescript/javascript   |
-| JsonString | not being a string parsable to a JSON object/array           |
+| Decorator   | Error condition                                              |
+| ----------- | ------------------------------------------------------------ |
+| NotNull     | null, undefined or empty string                              |
+| Email       | not matching the email string pattern (string@string.string) |
+| StringType  | not being a string type according to typescript/javascript   |
+| NumberType  | not being a number type according to typescript/javascript   |
+| BooleanType | not being a boolean type according to typescript/javascript  |
+| JsonString  | not being a string parsable to a JSON object/array           |
 
 ### CustomValidation decorator
 
