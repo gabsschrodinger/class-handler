@@ -29,5 +29,13 @@
   },
   "dependencies": {
     "validator": "^13.7.0"
-  }
+  },
+  "keywords": [
+    "decorator",
+    "typescript",
+    "validation",
+    "class",
+    "class-handler",
+    "class handler"
+  ]
 }

@@ -14,6 +14,16 @@ export const NOT_STRING = (value: any): boolean =>
 export const NOT_NUMBER = (value: any): boolean =>
   !(typeof value == "number" || value instanceof Number);
 
+export const NUMBER_LESS_OR_EQUAL_THAN =
+  (threshold: number) =>
+  (value: any): boolean =>
+    NOT_NUMBER(value) || value <= threshold;
+
+export const NUMBER_GREATER_OR_EQUAL_THAN =
+  (threshold: number) =>
+  (value: any): boolean =>
+    NOT_NUMBER(value) || value >= threshold;
+
 export const NOT_BOOLEAN = (value: any): boolean =>
   !(typeof value == "boolean" || value instanceof Boolean);
 
@@ -33,6 +43,8 @@ export const IS_JSON_STRING = (value: any): boolean => {
 };
 
 export const NOT_JSON_STRING = (value: any): boolean => !IS_JSON_STRING(value);
+
+export const NOT_ARRAY = (value: any): boolean => !Array.isArray(value);
 
 export const IS_IN_ARRAY =
   (arr: Array<any>) =>
