@@ -22,7 +22,7 @@ describe("Property Validation Decorators", () => {
     validateDecorator(NotNull, {
       errorCondition1: undefined,
       errorCondition2: null,
-      errorCondition3: undefined,
+      errorCondition3: "",
       successCondition: faker.random.word(),
     });
   });
@@ -52,7 +52,7 @@ describe("Property Validation Decorators", () => {
     }
     validateDecorator(decorator, {
       errorCondition1: faker.datatype.array(),
-      errorCondition2: null,
+      errorCondition2: threshold,
       errorCondition3: faker.datatype.number({ min: 0, max: threshold - 1 }),
       successCondition: faker.datatype.number({
         min: threshold,
@@ -68,7 +68,7 @@ describe("Property Validation Decorators", () => {
     }
     validateDecorator(decorator, {
       errorCondition1: faker.datatype.array(),
-      errorCondition2: null,
+      errorCondition2: threshold,
       errorCondition3: faker.datatype.number({
         min: threshold,
         max: threshold + 20,
