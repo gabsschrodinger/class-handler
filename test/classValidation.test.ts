@@ -5,7 +5,7 @@ import { validateInstance } from "../src/class/utils";
 describe("Catch Many", () => {
   it("should not throw errors and keep them in the error obj", () => {
     @CatchMany({ messages: [] }, "messages")
-    class Manoo {
+    class SomeClass {
       @NotNull("not null")
       @StringType("string type")
       anyField: any;
@@ -18,9 +18,9 @@ describe("Catch Many", () => {
     let exception: any;
 
     try {
-      new Manoo();
+      new SomeClass();
     } catch (error) {
-      exception = "falhjhaaaaa";
+      exception = error;
     }
 
     expect(exception).toBeUndefined();
@@ -28,7 +28,7 @@ describe("Catch Many", () => {
 
   it("should throw errors when validate class is called", () => {
     @CatchMany({ messages: [] }, "messages")
-    class Manoo {
+    class SomeClass {
       @NotNull("not null")
       @StringType("string type")
       anyField: any;
@@ -38,7 +38,7 @@ describe("Catch Many", () => {
       }
     }
 
-    const instance = new Manoo();
+    const instance = new SomeClass();
 
     let exception: any;
 
@@ -53,7 +53,7 @@ describe("Catch Many", () => {
 
   it("should not thorw error from one instance for another", () => {
     @CatchMany({ messages: [] }, "messages")
-    class Manoo {
+    class SomeClass {
       @NotNull("not null")
       @StringType("string type")
       anyField: any;
@@ -63,8 +63,8 @@ describe("Catch Many", () => {
       }
     }
 
-    const anotherInstance = new Manoo("haha");
-    new Manoo();
+    const anotherInstance = new SomeClass("haha");
+    new SomeClass();
 
     let exception: any;
 
@@ -72,6 +72,31 @@ describe("Catch Many", () => {
       validateInstance(anotherInstance);
     } catch (error) {
       exception = error;
+    }
+
+    expect(exception).toBeUndefined();
+  });
+
+  it("should not thorw errors when decorators dont find any", () => {
+    @CatchMany({ messages: [] }, "messages")
+    class SomeClass {
+      @NotNull("not null")
+      @StringType("string type")
+      anyField: any;
+
+      constructor(anyField?: any) {
+        this.anyField = anyField;
+      }
+    }
+
+    const instance = new SomeClass("some-text");
+
+    let exception: any;
+
+    try {
+      validateInstance(instance);
+    } catch (_error) {
+      exception = "error";
     }
 
     expect(exception).toBeUndefined();

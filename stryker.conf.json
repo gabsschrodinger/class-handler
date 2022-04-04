@@ -16,5 +16,6 @@
   "mutate": [
     "src/**/*.ts",
     "!src/constants.ts"
-  ]
+  ],
+  "timeoutMS": 200000
 }
