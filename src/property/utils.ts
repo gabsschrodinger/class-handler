@@ -12,6 +12,8 @@ import {
   setPropValue,
 } from "../object";
 
+import { STRING_TYPE_MESSAGE } from "./messages";
+
 function processPropValidations(
   propValue: any,
   propValidations: Array<Function>,
@@ -106,10 +108,20 @@ function addValidation(
 
 export function validationDecorator(
   condition: (value: any) => boolean,
-  error: Object | string | Error
+  error:
+    | Object
+    | string
+    | Error
+    | ((className: string, field: string) => string)
 ) {
   return function (prototypeTarget: Object, key: string): void {
-    const validation = (value: any) => baseValidation(condition(value), error);
+    let errorMessage: string;
+    if (typeof error == "function") {
+      errorMessage = error(prototypeTarget.constructor.name, key);
+    }
+
+    const validation = (value: any) =>
+      baseValidation(condition(value), errorMessage || error);
 
     initValidation(prototypeTarget, key);
 

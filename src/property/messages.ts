@@ -1,0 +1,39 @@
+export const NOT_NULL_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} can't be null`;
+
+export const EMAIL_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} is must be a valid email`;
+
+export const STRING_TYPE_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be a string`;
+
+export const NUMBER_TYPE_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be a number`;
+
+export const NUMBER_GREATER_THAN_MESSAGE =
+  (threshold: number) => (className: string, field: string) =>
+    `Field ${field} of class ${className} must be a number greater than ${threshold}`;
+
+export const NUMBER_LESS_THAN_MESSAGE =
+  (threshold: number) => (className: string, field: string) =>
+    `Field ${field} of class ${className} must be a number less than ${threshold}`;
+
+export const ARRAY_TYPE_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be an array`;
+
+export const INCLUDED_IN_ARRAY_MESSAGE =
+  (array: Array<any>) => (className: string, field: string) =>
+    `Field ${field} of class ${className} must be an item of array ${array}`;
+
+export const NOT_INCLUDED_IN_ARRAY_MESSAGE =
+  (array: Array<any>) => (className: string, field: string) =>
+    `Field ${field} of class ${className} can't be an item of array ${array}`;
+
+export const BOOLEAN_TYPE_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be a boolean`;
+
+export const JSON_STRING_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must a JSON string`;
+
+export const CUSTOM_VALIDATION_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} received an invalid input`;
