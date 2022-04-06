@@ -86,19 +86,22 @@ console.log(exception); // { errorMessages: ["some field should be a string type
 
 ### Built in property decorators
 
-| Decorator          | Error condition                                                                                |
-| ------------------ | ---------------------------------------------------------------------------------------------- |
-| NotNull            | null, undefined or empty string                                                                |
-| Email              | not matching the email string pattern (string@string.string)                                   |
-| StringType         | not being a string type according to typescript/javascript                                     |
-| NumberType         | not being a number type according to typescript/javascript                                     |
-| BooleanType        | not being a boolean type according to typescript/javascript                                    |
-| ArrayType          | not being an array according to typescript/javascript                                          |
-| IncludedInArray    | not being an item of the given array (first parameter)                                         |
-| NotIncludedInArray | being an item of the given array (first parameter)                                             |
-| JsonString         | not being a string parsable to a JSON object/array                                             |
-| NumberGreaterThan  | not being a number or being a number less or equal than a given threshold (first parameter)    |
-| NumberLessThan     | not being a number or being a number greater or equal than a given threshold (first parameter) |
+| Decorator           | Error condition                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| NotNull             | null, undefined or empty string                                                                |
+| Email               | not matching the email string pattern (string@string.string)                                   |
+| StringType          | not being a string type according to typescript/javascript                                     |
+| NumberType          | not being a number type according to typescript/javascript                                     |
+| BooleanType         | not being a boolean type according to typescript/javascript                                    |
+| ArrayType           | not being an array according to typescript/javascript                                          |
+| IncludedInArray     | not being an item of the given array (first parameter)                                         |
+| NotIncludedInArray  | being an item of the given array (first parameter)                                             |
+| JsonString          | not being a string parsable to a JSON object/array                                             |
+| NumberGreaterThan   | not being a number or being a number less or equal than a given threshold (first parameter)    |
+| NumberLessThan      | not being a number or being a number greater or equal than a given threshold (first parameter) |
+| StringMatchingRegex | not being a string or don't matching the given regex (first parameter)                         |
+| NumericString       | not being a string or being a string with non-numeric chars                                    |
+| AlphanumericString  | not being a string or being a string with non-alphanumeric chars                               |
 
 ### CustomValidation decorator
 
