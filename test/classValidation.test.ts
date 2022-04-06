@@ -27,7 +27,7 @@ describe("Catch Many", () => {
   });
 
   it("should throw errors when validate class is called", () => {
-    @CatchMany({ messages: [] }, "messages")
+    @CatchMany({ errorCode: 400, messages: [] }, "messages")
     class SomeClass {
       @NotNull("not null")
       @StringType("string type")
@@ -48,7 +48,10 @@ describe("Catch Many", () => {
       exception = error;
     }
 
-    expect(exception).toEqual({ messages: ["string type", "not null"] });
+    expect(exception).toEqual({
+      errorCode: 400,
+      messages: ["string type", "not null"],
+    });
   });
 
   it("should not thorw error from one instance for another", () => {

@@ -55,3 +55,14 @@ export const NOT_IN_ARRAY =
   (arr: Array<any>) =>
   (value: any): boolean =>
     !arr.includes(value);
+
+export const NOT_STRING_MATCHING_REGEX =
+  (regex: RegExp) =>
+  (value: any): boolean =>
+    NOT_STRING(value) || !regex.test(value);
+
+export const NOT_NUMERIC_STRING = (value: any) =>
+  NOT_STRING_MATCHING_REGEX(/^\d+$/)(value);
+
+export const NOT_ALPHANUMERIC_STRING = (value: any) =>
+  NOT_STRING_MATCHING_REGEX(/^[a-z\d]+$/i)(value);

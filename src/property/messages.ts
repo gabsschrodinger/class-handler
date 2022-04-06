@@ -37,3 +37,13 @@ export const JSON_STRING_MESSAGE = (className: string, field: string) =>
 
 export const CUSTOM_VALIDATION_MESSAGE = (className: string, field: string) =>
   `Field ${field} of class ${className} received an invalid input`;
+
+export const STRING_MATCHING_REGEX_MESSAGE =
+  (regex: RegExp) => (className: string, field: string) =>
+    `Field ${field} of class ${className} must match ${regex} regex`;
+
+export const NUMERIC_STRING_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be a numeric string`;
+
+export const ALPHANUMERIC_STRING_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be an alphanumeric string`;

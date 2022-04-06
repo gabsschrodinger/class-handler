@@ -1,4 +1,5 @@
 import {
+  ALPHANUMERIC_STRING_MESSAGE,
   ARRAY_TYPE_MESSAGE,
   BOOLEAN_TYPE_MESSAGE,
   CUSTOM_VALIDATION_MESSAGE,
@@ -10,9 +11,12 @@ import {
   NUMBER_GREATER_THAN_MESSAGE,
   NUMBER_LESS_THAN_MESSAGE,
   NUMBER_TYPE_MESSAGE,
+  NUMERIC_STRING_MESSAGE,
+  STRING_MATCHING_REGEX_MESSAGE,
   STRING_TYPE_MESSAGE,
 } from "../src/property/messages";
 import {
+  AlphanumericString,
   ArrayType,
   BooleanType,
   CustomValidation,
@@ -24,6 +28,8 @@ import {
   NumberGreaterThan,
   NumberLessThan,
   NumberType,
+  NumericString,
+  StringMatchingRegex,
   StringType,
 } from "../src";
 import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions";
@@ -67,9 +73,9 @@ describe("Property Validation Decorators", () => {
     validateDecorator(decorator, NUMBER_GREATER_THAN_MESSAGE(threshold), {
       errorCondition1: faker.datatype.array(),
       errorCondition2: threshold,
-      errorCondition3: faker.datatype.number({ min: 0, max: threshold - 1 }),
+      errorCondition3: faker.datatype.number({ min: 0, max: threshold }),
       successCondition: faker.datatype.number({
-        min: threshold,
+        min: threshold + 1,
         max: threshold + 20,
       }),
     });
@@ -152,6 +158,38 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.random.word(),
       successCondition: faker.datatype.json(),
+    });
+  });
+
+  describe("StringMatchingRegex", () => {
+    const regex = /^hello$/;
+    function decorator(error?: any) {
+      return StringMatchingRegex(regex, error);
+    }
+
+    validateDecorator(decorator, STRING_MATCHING_REGEX_MESSAGE(regex), {
+      errorCondition1: "not-hello",
+      errorCondition2: null,
+      errorCondition3: faker.address.city(),
+      successCondition: "hello",
+    });
+  });
+
+  describe("NumericString", () => {
+    validateDecorator(NumericString, NUMERIC_STRING_MESSAGE, {
+      errorCondition1: faker.random.word(),
+      errorCondition2: null,
+      errorCondition3: "5522d",
+      successCondition: "456250",
+    });
+  });
+
+  describe("AlphanumericString", () => {
+    validateDecorator(AlphanumericString, ALPHANUMERIC_STRING_MESSAGE, {
+      errorCondition1: faker.datatype.json(),
+      errorCondition2: null,
+      errorCondition3: faker.datatype.number(),
+      successCondition: "456250as",
     });
   });
 

@@ -12,8 +12,6 @@ import {
   setPropValue,
 } from "../object";
 
-import { STRING_TYPE_MESSAGE } from "./messages";
-
 function processPropValidations(
   propValue: any,
   propValidations: Array<Function>,
@@ -83,7 +81,7 @@ function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
     : errorObj[field];
   const newMessages = [...oldMessages, ...errorMessages];
 
-  const newErrorObj = { ...instanceError, [field]: newMessages };
+  const newErrorObj = { ...errorObj, [field]: newMessages };
 
   setPropValue(instance, INSTANCE_ERROR, newErrorObj, true, true);
 }
