@@ -53,7 +53,7 @@ function getValidationSetter(
 
     if (catchMany && errorsArray.length) addErrorToMessages(this, errorsArray);
 
-    this["_" + key] = value;
+    setPropValue(this, key, value, true, true, true);
   };
 }
 

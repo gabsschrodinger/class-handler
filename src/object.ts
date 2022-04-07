@@ -12,12 +12,14 @@ export const setPropValue = (
   key: string,
   value: any,
   configurable: boolean,
-  writable: boolean
+  writable: boolean,
+  enumerable: boolean = false
 ): void => {
   Object.defineProperty(target, key, {
     value,
     configurable,
     writable,
+    enumerable,
   });
 };
 
@@ -31,6 +33,15 @@ export const setPropSetter = (
     configurable: true,
   });
 };
+/* 
+export const setPropGetter = (target: Object, key: string): void => {
+  Object.defineProperty(target, key, {
+    set: function () {
+      return this["_" + key + "_"];
+    },
+    configurable: true,
+  });
+}; */
 
 export const pushIntoProp = (
   target: Object,

@@ -103,5 +103,6 @@ describe("Catch Many", () => {
     }
 
     expect(exception).toBeUndefined();
+    expect(instance.anyField).toEqual("some-text");
   });
 });
