@@ -12,6 +12,8 @@ import {
   setPropValue,
 } from "../object";
 
+import { ValidationError } from "../types";
+
 function processPropValidations(
   propValue: any,
   propValidations: Array<Function>,
@@ -19,9 +21,9 @@ function processPropValidations(
 ): Array<string> {
   const errorsArray: Array<string> = [];
 
-  for (let i = 0; i < propValidations.length; i++) {
+  for (const validation of propValidations) {
     try {
-      propValidations[i](propValue);
+      validation(propValue);
     } catch (exception) {
       if (catchMany && exception instanceof Error) {
         errorsArray.push(exception.message);
@@ -43,7 +45,7 @@ function getValidationSetter(
       prototypeTarget,
       key + "Validations"
     );
-    const catchMany: boolean = prototypeTarget[CATCH_MANY_PROP];
+    const catchMany: boolean = getPropValue(prototypeTarget, CATCH_MANY_PROP);
 
     const errorsArray: Array<string> = processPropValidations(
       value,
@@ -51,16 +53,23 @@ function getValidationSetter(
       catchMany
     );
 
-    if (catchMany && errorsArray.length) addErrorToMessages(this, errorsArray);
+    if (errorsArray.length) addErrorToMessages(this, errorsArray);
 
-    setPropValue(this, key, value, true, true, true);
+    setPropValue(this, key, value, {
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    });
   };
 }
 
 function initValidation(prototypeTarget: Object, key: string) {
   if (getProp(prototypeTarget, key + "Validations")) return;
 
-  setPropValue(prototypeTarget, key + "Validations", [], true, true);
+  setPropValue(prototypeTarget, key + "Validations", [], {
+    configurable: true,
+    writable: true,
+  });
 
   const newSetter = getValidationSetter(prototypeTarget, key);
   setPropSetter(prototypeTarget, key, newSetter);
@@ -83,11 +92,17 @@ function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
 
   const newErrorObj = { ...errorObj, [field]: newMessages };
 
-  setPropValue(instance, INSTANCE_ERROR, newErrorObj, true, true);
+  setPropValue(instance, INSTANCE_ERROR, newErrorObj, {
+    configurable: true,
+    writable: true,
+  });
 }
 
-function baseValidation(condition: boolean, error: Object | string | Error) {
-  if (condition) {
+function baseValidation(
+  errorCondition: boolean,
+  error: Object | string | Error
+) {
+  if (errorCondition) {
     if (typeof error === "string" || error instanceof String) {
       throw new Error(error as string);
     }
@@ -105,12 +120,8 @@ function addValidation(
 }
 
 export function validationDecorator(
-  condition: (value: any) => boolean,
-  error:
-    | Object
-    | string
-    | Error
-    | ((className: string, field: string) => string)
+  errorCondition: (value: any) => boolean,
+  error: ValidationError
 ) {
   return function (prototypeTarget: Object, key: string): void {
     let errorMessage: string;
@@ -119,7 +130,7 @@ export function validationDecorator(
     }
 
     const validation = (value: any) =>
-      baseValidation(condition(value), errorMessage || error);
+      baseValidation(errorCondition(value), errorMessage || error);
 
     initValidation(prototypeTarget, key);
 

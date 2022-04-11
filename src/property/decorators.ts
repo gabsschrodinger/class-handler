@@ -32,13 +32,14 @@ import {
   NUMBER_LESS_OR_EQUAL_THAN,
 } from "./conditions";
 
+import { ValidationError } from "../types";
 import { validationDecorator } from "./utils";
 
 /**
  * Property validation decorator.
  * Validate if a property is not null when the class is instantiated.
  */
-export function NotNull(error?: Object | string | Error) {
+export function NotNull(error?: ValidationError) {
   return validationDecorator(IS_NULL, error ?? NOT_NULL_MESSAGE);
 }
 
@@ -46,7 +47,7 @@ export function NotNull(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property is a valid email when the class is instantiated.
  */
-export function Email(error?: Object | string | Error) {
+export function Email(error?: ValidationError) {
   return validationDecorator(NOT_EMAIL, error ?? EMAIL_MESSAGE);
 }
 
@@ -54,7 +55,7 @@ export function Email(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property is of type string when the class is instantiated.
  */
-export function StringType(error?: Object | string | Error) {
+export function StringType(error?: ValidationError) {
   return validationDecorator(NOT_STRING, error ?? STRING_TYPE_MESSAGE);
 }
 
@@ -62,7 +63,7 @@ export function StringType(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property is of type number when the class is instantiated.
  */
-export function NumberType(error?: Object | string | Error) {
+export function NumberType(error?: ValidationError) {
   return validationDecorator(NOT_NUMBER, error ?? NUMBER_TYPE_MESSAGE);
 }
 
@@ -70,10 +71,7 @@ export function NumberType(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property is of type number and if the number is greater than the given threshold when the class is instantiated.
  */
-export function NumberGreaterThan(
-  threshold: number,
-  error?: Object | string | Error
-) {
+export function NumberGreaterThan(threshold: number, error?: ValidationError) {
   return validationDecorator(
     NUMBER_LESS_OR_EQUAL_THAN(threshold),
     error ?? NUMBER_GREATER_THAN_MESSAGE(threshold)
@@ -84,10 +82,7 @@ export function NumberGreaterThan(
  * Property validation decorator.
  * Validate if a property is of type number and if the number is less than the given threshold when the class is instantiated.
  */
-export function NumberLessThan(
-  threshold: number,
-  error?: Object | string | Error
-) {
+export function NumberLessThan(threshold: number, error?: ValidationError) {
   return validationDecorator(
     NUMBER_GREATER_OR_EQUAL_THAN(threshold),
     error ?? NUMBER_LESS_THAN_MESSAGE(threshold)
@@ -98,7 +93,7 @@ export function NumberLessThan(
  * Property validation decorator.
  * Validate if a property is an array when the class is instantiated.
  */
-export function ArrayType(error?: Object | string | Error) {
+export function ArrayType(error?: ValidationError) {
   return validationDecorator(NOT_ARRAY, error ?? ARRAY_TYPE_MESSAGE);
 }
 
@@ -106,10 +101,7 @@ export function ArrayType(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property is included in a given array when the class is instantiated.
  */
-export function IncludedInArray(
-  array: Array<any>,
-  error?: Object | string | Error
-) {
+export function IncludedInArray(array: Array<any>, error?: ValidationError) {
   return validationDecorator(
     NOT_IN_ARRAY(array),
     error ?? INCLUDED_IN_ARRAY_MESSAGE(array)
@@ -120,10 +112,7 @@ export function IncludedInArray(
  * Property validation decorator.
  * Validate if a property is not included in a given array when the class is instantiated.
  */
-export function NotIncludedInArray(
-  array: Array<any>,
-  error?: Object | string | Error
-) {
+export function NotIncludedInArray(array: Array<any>, error?: ValidationError) {
   return validationDecorator(
     IS_IN_ARRAY(array),
     error ?? NOT_INCLUDED_IN_ARRAY_MESSAGE(array)
@@ -134,7 +123,7 @@ export function NotIncludedInArray(
  * Property validation decorator.
  * Validate if a property is of type boolean when the class is instantiated.
  */
-export function BooleanType(error?: Object | string | Error) {
+export function BooleanType(error?: ValidationError) {
   return validationDecorator(NOT_BOOLEAN, error ?? BOOLEAN_TYPE_MESSAGE);
 }
 
@@ -142,7 +131,7 @@ export function BooleanType(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property is a valid JSON string when the class is instantiated.
  */
-export function JsonString(error?: Object | string | Error) {
+export function JsonString(error?: ValidationError) {
   return validationDecorator(NOT_JSON_STRING, error ?? JSON_STRING_MESSAGE);
 }
 
@@ -150,10 +139,7 @@ export function JsonString(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property value matches a given regex (first parameter) when the class is instantiated.
  */
-export function StringMatchingRegex(
-  regex: RegExp,
-  error?: Object | string | Error
-) {
+export function StringMatchingRegex(regex: RegExp, error?: ValidationError) {
   return validationDecorator(
     NOT_STRING_MATCHING_REGEX(regex),
     error ?? STRING_MATCHING_REGEX_MESSAGE(regex)
@@ -164,7 +150,7 @@ export function StringMatchingRegex(
  * Property validation decorator.
  * Validate if a property value is a numeric string when the class is instantiated.
  */
-export function NumericString(error?: Object | string | Error) {
+export function NumericString(error?: ValidationError) {
   return validationDecorator(
     NOT_NUMERIC_STRING,
     error ?? NUMERIC_STRING_MESSAGE
@@ -175,7 +161,7 @@ export function NumericString(error?: Object | string | Error) {
  * Property validation decorator.
  * Validate if a property value is a alphanumeric string when the class is instantiated.
  */
-export function AlphanumericString(error?: Object | string | Error) {
+export function AlphanumericString(error?: ValidationError) {
   return validationDecorator(
     NOT_ALPHANUMERIC_STRING,
     error ?? ALPHANUMERIC_STRING_MESSAGE
@@ -188,7 +174,7 @@ export function AlphanumericString(error?: Object | string | Error) {
  */
 export function CustomValidation(
   condition: (value: any) => boolean,
-  error?: Object | string | Error
+  error?: ValidationError
 ) {
   return validationDecorator(condition, error ?? CUSTOM_VALIDATION_MESSAGE);
 }

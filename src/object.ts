@@ -1,3 +1,5 @@
+import { PropConfig } from "./types";
+
 export const getProp = (
   target: Object,
   key: string
@@ -11,15 +13,11 @@ export const setPropValue = (
   target: Object,
   key: string,
   value: any,
-  configurable: boolean,
-  writable: boolean,
-  enumerable: boolean = false
+  config?: PropConfig
 ): void => {
   Object.defineProperty(target, key, {
     value,
-    configurable,
-    writable,
-    enumerable,
+    ...config,
   });
 };
 
@@ -33,20 +31,19 @@ export const setPropSetter = (
     configurable: true,
   });
 };
-/* 
-export const setPropGetter = (target: Object, key: string): void => {
-  Object.defineProperty(target, key, {
-    set: function () {
-      return this["_" + key + "_"];
-    },
-    configurable: true,
-  });
-}; */
 
 export const pushIntoProp = (
   target: Object,
   key: string,
   values: Array<any>
 ): void => {
-  Object.getOwnPropertyDescriptor(target, key)?.value?.push(...values);
+  const arrayProperty = getPropValue(target, key);
+
+  if (!Array.isArray(arrayProperty)) {
+    throw new Error(
+      `Cannot push values into prop because property ${key} is not an array`
+    );
+  }
+
+  arrayProperty.push(...values);
 };
