@@ -1,4 +1,10 @@
-# class-handler
+<div align="center">
+  <h1>class-handler</h1>
+
+[![codecov](https://codecov.io/gh/gabsschrodinger/class-handler/branch/main/graph/badge.svg)](https://codecov.io/gh/gabsschrodinger/class-handler)
+[![npm downloads](https://badgen.net/npm/dm/class-handler)](https://www.npmjs.com/package/class-handler)
+
+</div>
 
 Provides decorators to help with class handling.
 Uses [validator](https://www.npmjs.com/package/validator).

@@ -52,6 +52,6 @@
     "class handler"
   ],
   "lint-staged": {
-    "*.{js,css,md,ts,json}": "npm run lint:fix"
+    "*.{js,css,ts,json}": "npm run lint:fix"
   }
 }
