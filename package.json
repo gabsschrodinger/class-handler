@@ -14,7 +14,8 @@
     "build:raw": "tsc --project tsconfig.prod.json",
     "build": "sh build.sh",
     "prepare": "husky install",
-    "lint": "eslint --fix ."
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "author": "Gabriel Fernandes Ribeiro",
   "license": "MIT",
@@ -51,6 +52,6 @@
     "class handler"
   ],
   "lint-staged": {
-    "*.{js,css,md,ts,json}": "npm run lint"
+    "*.{js,css,md,ts,json}": "npm run lint:fix"
   }
 }
