@@ -1,3 +1,4 @@
+import faker from "@faker-js/faker";
 import {
   getProp,
   getPropValue,
@@ -7,7 +8,6 @@ import {
 } from "../src/object";
 
 import { PropConfig } from "../src/types";
-import faker from "@faker-js/faker";
 
 describe("Object handling utils", () => {
   const someObject = {
@@ -78,7 +78,7 @@ describe("Object handling utils", () => {
         .spyOn(Object, "defineProperty")
         .mockImplementationOnce(() => {});
 
-      setPropSetter(someObject, FIELD, function (_value: any) {});
+      setPropSetter(someObject, FIELD, (_value: any) => {});
 
       expect(defineSpy).toHaveBeenCalledWith(someObject, FIELD, {
         set: expect.any(Function),

@@ -21,7 +21,7 @@ function processPropValidations(
 ): Array<string> {
   const errorsArray: Array<string> = [];
 
-  for (const validation of propValidations) {
+  propValidations.forEach((validation) => {
     try {
       validation(propValue);
     } catch (exception) {
@@ -31,48 +31,9 @@ function processPropValidations(
         throw exception;
       }
     }
-  }
-
-  return errorsArray;
-}
-
-function getValidationSetter(
-  prototypeTarget: Record<string, any>,
-  key: string
-) {
-  return function (this: Record<string, any>, value: any): void {
-    const propValidations: Array<Function> = getPropValue(
-      prototypeTarget,
-      key + "Validations"
-    );
-    const catchMany: boolean = getPropValue(prototypeTarget, CATCH_MANY_PROP);
-
-    const errorsArray: Array<string> = processPropValidations(
-      value,
-      propValidations,
-      catchMany
-    );
-
-    if (errorsArray.length) addErrorToMessages(this, errorsArray);
-
-    setPropValue(this, key, value, {
-      writable: true,
-      enumerable: true,
-      configurable: true,
-    });
-  };
-}
-
-function initValidation(prototypeTarget: Object, key: string) {
-  if (getProp(prototypeTarget, key + "Validations")) return;
-
-  setPropValue(prototypeTarget, key + "Validations", [], {
-    configurable: true,
-    writable: true,
   });
 
-  const newSetter = getValidationSetter(prototypeTarget, key);
-  setPropSetter(prototypeTarget, key, newSetter);
+  return errorsArray;
 }
 
 function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
@@ -98,6 +59,45 @@ function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
   });
 }
 
+function getValidationSetter(
+  prototypeTarget: Record<string, any>,
+  key: string
+) {
+  return function (this: Record<string, any>, value: any): void {
+    const propValidations: Array<Function> = getPropValue(
+      prototypeTarget,
+      `${key}Validations`
+    );
+    const catchMany: boolean = getPropValue(prototypeTarget, CATCH_MANY_PROP);
+
+    const errorsArray: Array<string> = processPropValidations(
+      value,
+      propValidations,
+      catchMany
+    );
+
+    if (errorsArray.length) addErrorToMessages(this, errorsArray);
+
+    setPropValue(this, key, value, {
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    });
+  };
+}
+
+function initValidation(prototypeTarget: Object, key: string) {
+  if (getProp(prototypeTarget, `${key}Validations`)) return;
+
+  setPropValue(prototypeTarget, `${key}Validations`, [], {
+    configurable: true,
+    writable: true,
+  });
+
+  const newSetter = getValidationSetter(prototypeTarget, key);
+  setPropSetter(prototypeTarget, key, newSetter);
+}
+
 function baseValidation(
   errorCondition: boolean,
   error: Object | string | Error
@@ -116,7 +116,7 @@ function addValidation(
   key: string,
   validation: Function
 ) {
-  pushIntoProp(prototypeTarget, key + "Validations", [validation]);
+  pushIntoProp(prototypeTarget, `${key}Validations`, [validation]);
 }
 
 export function validationDecorator(
@@ -125,7 +125,7 @@ export function validationDecorator(
 ) {
   return function (prototypeTarget: Object, key: string): void {
     let errorMessage: string;
-    if (typeof error == "function") {
+    if (typeof error === "function") {
       errorMessage = error(prototypeTarget.constructor.name, key);
     }
 

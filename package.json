@@ -8,7 +8,7 @@
     "url": "https://github.com/gabsschrodinger/class-handler.git"
   },
   "scripts": {
-    "test": "jest",
+    "test": "npm run lint && jest",
     "mutation": "npx stryker run",
     "coverage": "jest --coverage",
     "build:raw": "tsc --project tsconfig.prod.json",
@@ -30,6 +30,7 @@
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -52,6 +53,6 @@
     "class handler"
   ],
   "lint-staged": {
-    "*.{js,css,ts,json}": "npm run lint:fix"
+    "*.{js,ts}": "npm run lint:fix"
   }
 }

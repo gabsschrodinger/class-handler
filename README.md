@@ -142,7 +142,7 @@ console.log(exception); // { error: "Value is less than 10" }
 
 ### validationDecorator function
 
-With the validationDecorator function, you can easily create your own property validation decorator. The function receives 2 arguments: the first one is the validation function/callback, exactly like in the CustomValidation decorator, and the second one is the error you want to throw, which can be an Object, a string or an Error instance.
+With the validationDecorator function, you can easily create your own property validation decorator. The function receives 2 arguments: the first one is the validation function/callback, exactly like in the CustomValidation decorator, and the second one is the error you want to throw, which can be an object, a string, an Error instance, or a callback function that receives 2 string parameters, class name and class property, and returns a error message (string).
 
 ### Example
 

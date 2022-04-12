@@ -1,5 +1,30 @@
 {
-  "extends": ["airbnb-base", "prettier"],
+  "root": true,
+  "env": {
+    "jest": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb-base", "airbnb-typescript/base", "prettier"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier"]
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "overrides": [
+    {
+      "files": ["*.test.ts", "propertyValidation.ts"],
+      "rules": {
+        "max-classes-per-file": "off",
+        "no-new": "off",
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "func-names": "off"
+  }
 }

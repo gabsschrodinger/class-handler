@@ -9,10 +9,10 @@ export const NOT_EMAIL = (value: any): boolean => {
 };
 
 export const NOT_STRING = (value: any): boolean =>
-  !(typeof value == "string" || value instanceof String);
+  !(typeof value === "string" || value instanceof String);
 
 export const NOT_NUMBER = (value: any): boolean =>
-  !(typeof value == "number" || value instanceof Number);
+  !(typeof value === "number" || value instanceof Number);
 
 export const NUMBER_LESS_OR_EQUAL_THAN =
   (threshold: number) =>
@@ -25,7 +25,7 @@ export const NUMBER_GREATER_OR_EQUAL_THAN =
     NOT_NUMBER(value) || value >= threshold;
 
 export const NOT_BOOLEAN = (value: any): boolean =>
-  !(typeof value == "boolean" || value instanceof Boolean);
+  !(typeof value === "boolean" || value instanceof Boolean);
 
 export const IS_NULL = (value: any): boolean =>
   value === null || value === undefined || value === "";
@@ -66,3 +66,6 @@ export const NOT_NUMERIC_STRING = (value: any) =>
 
 export const NOT_ALPHANUMERIC_STRING = (value: any) =>
   NOT_STRING_MATCHING_REGEX(/^[a-z\d]+$/i)(value);
+
+export const NOT_INTEGER = (value: any) =>
+  NOT_NUMBER(value) || !Number.isInteger(value);

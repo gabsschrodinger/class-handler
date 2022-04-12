@@ -1,8 +1,4 @@
-import {
-  CATCH_MANY_PROP,
-  ERROR_PROP,
-  MESSAGES_FIELD_PROP,
-} from "./../constants";
+import { CATCH_MANY_PROP, ERROR_PROP, MESSAGES_FIELD_PROP } from "../constants";
 
 import { setPropValue } from "../object";
 

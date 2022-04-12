@@ -47,3 +47,6 @@ export const NUMERIC_STRING_MESSAGE = (className: string, field: string) =>
 
 export const ALPHANUMERIC_STRING_MESSAGE = (className: string, field: string) =>
   `Field ${field} of class ${className} must be an alphanumeric string`;
+
+export const INTEGER_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} must be an integer`;

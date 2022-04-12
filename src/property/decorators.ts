@@ -5,6 +5,7 @@ import {
   CUSTOM_VALIDATION_MESSAGE,
   EMAIL_MESSAGE,
   INCLUDED_IN_ARRAY_MESSAGE,
+  INTEGER_MESSAGE,
   JSON_STRING_MESSAGE,
   NOT_INCLUDED_IN_ARRAY_MESSAGE,
   NOT_NULL_MESSAGE,
@@ -22,6 +23,7 @@ import {
   NOT_ARRAY,
   NOT_BOOLEAN,
   NOT_EMAIL,
+  NOT_INTEGER,
   NOT_IN_ARRAY,
   NOT_JSON_STRING,
   NOT_NUMBER,
@@ -166,6 +168,14 @@ export function AlphanumericString(error?: ValidationError) {
     NOT_ALPHANUMERIC_STRING,
     error ?? ALPHANUMERIC_STRING_MESSAGE
   );
+}
+
+/**
+ * Property validation decorator.
+ * Validate if a property value is a alphanumeric string when the class is instantiated.
+ */
+export function Integer(error?: ValidationError) {
+  return validationDecorator(NOT_INTEGER, error ?? INTEGER_MESSAGE);
 }
 
 /**

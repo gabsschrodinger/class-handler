@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import {
   ALPHANUMERIC_STRING_MESSAGE,
   ARRAY_TYPE_MESSAGE,
@@ -5,6 +6,7 @@ import {
   CUSTOM_VALIDATION_MESSAGE,
   EMAIL_MESSAGE,
   INCLUDED_IN_ARRAY_MESSAGE,
+  INTEGER_MESSAGE,
   JSON_STRING_MESSAGE,
   NOT_INCLUDED_IN_ARRAY_MESSAGE,
   NOT_NULL_MESSAGE,
@@ -22,6 +24,7 @@ import {
   CustomValidation,
   Email,
   IncludedInArray,
+  Integer,
   JsonString,
   NotIncludedInArray,
   NotNull,
@@ -34,7 +37,6 @@ import {
 } from "../src";
 import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions";
 
-import { faker } from "@faker-js/faker";
 import { validateDecorator } from "./helpers/propertyValidation";
 
 describe("Property Validation Decorators", () => {
@@ -113,7 +115,7 @@ describe("Property Validation Decorators", () => {
       return IncludedInArray(array, error);
     }
     validateDecorator(decorator, INCLUDED_IN_ARRAY_MESSAGE(array), {
-      errorCondition1: item + "500",
+      errorCondition1: `${item}500`,
       errorCondition2: null,
       errorCondition3: true,
       successCondition: item,
@@ -130,7 +132,7 @@ describe("Property Validation Decorators", () => {
       errorCondition1: array[1],
       errorCondition2: item,
       errorCondition3: array[5],
-      successCondition: item + "500",
+      successCondition: `${item}500`,
     });
   });
 
@@ -190,6 +192,15 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.number(),
       successCondition: "456250as",
+    });
+  });
+
+  describe("Integer", () => {
+    validateDecorator(Integer, INTEGER_MESSAGE, {
+      errorCondition1: faker.datatype.json(),
+      errorCondition2: null,
+      errorCondition3: faker.datatype.float(),
+      successCondition: 12,
     });
   });
 
