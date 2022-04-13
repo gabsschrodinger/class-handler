@@ -32,6 +32,12 @@ describe("Object handling utils", () => {
 
       expect(result).toEqual(propValue);
     });
+
+    it("should return undefined when prop is undefined", () => {
+      const result = getPropValue(someObject, FIELD + faker.random.word());
+
+      expect(result).toBeUndefined();
+    });
   });
 
   describe("set prop value", () => {

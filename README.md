@@ -108,6 +108,7 @@ console.log(exception); // { errorMessages: ["some field should be a string type
 | StringMatchingRegex | not being a string or don't matching the given regex (first parameter)                         |
 | NumericString       | not being a string or being a string with non-numeric chars                                    |
 | AlphanumericString  | not being a string or being a string with non-alphanumeric chars                               |
+| Integer             | not being a number or not being an integer                                                     |
 
 ### CustomValidation decorator
 
