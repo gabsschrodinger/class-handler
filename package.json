@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "npm run lint && jest",
-    "mutation": "npx stryker run",
+    "mutation": "stryker run",
     "coverage": "jest --coverage",
     "build:raw": "tsc --project tsconfig.prod.json",
     "build": "sh build.sh",
