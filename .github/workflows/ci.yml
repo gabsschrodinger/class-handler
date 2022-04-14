@@ -40,5 +40,6 @@ jobs:
 
       - name: Mutation tests
         run: npm run mutation
+        if: ${{ matrix.node-version == 14 }}
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
