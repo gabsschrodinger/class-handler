@@ -1,7 +1,7 @@
 export interface PropConfig {
-  configurable?: boolean;
-  writable?: boolean;
-  enumerable?: boolean;
+  configurable?: boolean
+  writable?: boolean
+  enumerable?: boolean
 }
 
 export type ValidationError =
@@ -9,4 +9,4 @@ export type ValidationError =
   | Error
   | Object
   | Record<string, any>
-  | ((className: string, field: string) => string);
+  | ((className: string, field: string) => string)

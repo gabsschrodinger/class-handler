@@ -8,6 +8,6 @@ const config = {
     "!src/index.ts",
   ],
   modulePathIgnorePatterns: ["<rootDir>/sample/"],
-};
+}
 
-module.exports = config;
+module.exports = config

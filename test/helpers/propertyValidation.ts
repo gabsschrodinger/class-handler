@@ -1,8 +1,8 @@
 interface TestConditions {
-  errorCondition1: any;
-  errorCondition2: any;
-  errorCondition3: any;
-  successCondition: any;
+  errorCondition1: any
+  errorCondition2: any
+  errorCondition3: any
+  successCondition: any
 }
 
 export const validateDecorator = (
@@ -16,89 +16,89 @@ export const validateDecorator = (
   }: TestConditions
 ) => {
   it("should throw specified error object when it receives an object", () => {
-    let exception: any;
-    const errorObj = { error: "some error" };
+    let exception: any
+    const errorObj = { error: "some error" }
 
     class SomeClass {
       @TestedDecorator(errorObj)
-      someField: any;
+      someField: any
 
       constructor(someField?: any) {
-        this.someField = someField;
+        this.someField = someField
       }
     }
 
     try {
-      new SomeClass(errorCondition1);
+      new SomeClass(errorCondition1)
     } catch (error) {
-      exception = error;
+      exception = error
     }
 
-    expect(exception).toEqual(errorObj);
-  });
+    expect(exception).toEqual(errorObj)
+  })
 
   it("should throw new error with given message when it receives a string", () => {
-    let exception: any;
-    const errorMessage = "some message";
+    let exception: any
+    const errorMessage = "some message"
 
     class SomeClass {
       @TestedDecorator(errorMessage)
-      someField: any;
+      someField: any
 
       constructor(someField?: any) {
-        this.someField = someField;
+        this.someField = someField
       }
     }
 
     try {
-      new SomeClass(errorCondition2);
+      new SomeClass(errorCondition2)
     } catch (error) {
-      exception = error;
+      exception = error
     }
 
-    expect(exception).toEqual(new Error(errorMessage));
-  });
+    expect(exception).toEqual(new Error(errorMessage))
+  })
 
   it("should throw default error when error is empty", () => {
-    let exception: any;
-    const defaultErrorMessage = defaultError("SomeClass", "someField");
+    let exception: any
+    const defaultErrorMessage = defaultError("SomeClass", "someField")
 
     class SomeClass {
       @TestedDecorator()
-      someField: any;
+      someField: any
 
       constructor(someField?: any) {
-        this.someField = someField;
+        this.someField = someField
       }
     }
 
     try {
-      new SomeClass(errorCondition3);
+      new SomeClass(errorCondition3)
     } catch (error) {
-      exception = error;
+      exception = error
     }
 
-    expect(exception).toEqual(new Error(defaultErrorMessage));
-  });
+    expect(exception).toEqual(new Error(defaultErrorMessage))
+  })
 
   it("should not throw error when field is filled with a valid input", () => {
-    let exception: any;
+    let exception: any
 
     class SomeClass {
       @TestedDecorator()
-      someField: any;
+      someField: any
 
       constructor(someField?: any) {
-        this.someField = someField;
+        this.someField = someField
       }
     }
 
     try {
-      new SomeClass(successCondition);
+      new SomeClass(successCondition)
     } catch (error) {
-      exception = error;
+      exception = error
     }
 
-    expect(exception).toBeUndefined();
-  });
-};
+    expect(exception).toBeUndefined()
+  })
+}

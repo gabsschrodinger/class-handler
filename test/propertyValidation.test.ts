@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker"
 import {
   ALPHANUMERIC_STRING_MESSAGE,
   ARRAY_TYPE_MESSAGE,
@@ -16,7 +16,7 @@ import {
   NUMERIC_STRING_MESSAGE,
   STRING_MATCHING_REGEX_MESSAGE,
   STRING_TYPE_MESSAGE,
-} from "../src/property/messages";
+} from "../src/property/messages"
 import {
   AlphanumericString,
   ArrayType,
@@ -34,10 +34,10 @@ import {
   NumericString,
   StringMatchingRegex,
   StringType,
-} from "../src";
-import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions";
+} from "../src"
+import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions"
 
-import { validateDecorator } from "./helpers/propertyValidation";
+import { validateDecorator } from "./helpers/propertyValidation"
 
 describe("Property Validation Decorators", () => {
   describe("NotNull", () => {
@@ -46,8 +46,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: "",
       successCondition: faker.random.word(),
-    });
-  });
+    })
+  })
 
   describe("Email", () => {
     validateDecorator(Email, EMAIL_MESSAGE, {
@@ -55,8 +55,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.uuid(),
       successCondition: faker.internet.email(),
-    });
-  });
+    })
+  })
 
   describe("StringType", () => {
     validateDecorator(StringType, STRING_TYPE_MESSAGE, {
@@ -64,13 +64,13 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.number(),
       successCondition: faker.random.word(),
-    });
-  });
+    })
+  })
 
   describe("NumberGreaterThan", () => {
-    const threshold = faker.datatype.number({ min: 20, max: 100000 });
+    const threshold = faker.datatype.number({ min: 20, max: 100000 })
     function decorator(error?: any) {
-      return NumberGreaterThan(threshold, error);
+      return NumberGreaterThan(threshold, error)
     }
     validateDecorator(decorator, NUMBER_GREATER_THAN_MESSAGE(threshold), {
       errorCondition1: faker.datatype.array(),
@@ -80,13 +80,13 @@ describe("Property Validation Decorators", () => {
         min: threshold + 1,
         max: threshold + 20,
       }),
-    });
-  });
+    })
+  })
 
   describe("NumberLessThan", () => {
-    const threshold = faker.datatype.number({ min: 20, max: 100000 });
+    const threshold = faker.datatype.number({ min: 20, max: 100000 })
     function decorator(error?: any) {
-      return NumberLessThan(threshold, error);
+      return NumberLessThan(threshold, error)
     }
     validateDecorator(decorator, NUMBER_LESS_THAN_MESSAGE(threshold), {
       errorCondition1: faker.datatype.array(),
@@ -96,8 +96,8 @@ describe("Property Validation Decorators", () => {
         max: threshold + 20,
       }),
       successCondition: faker.datatype.number({ min: 0, max: threshold - 1 }),
-    });
-  });
+    })
+  })
 
   describe("ArrayType", () => {
     validateDecorator(ArrayType, ARRAY_TYPE_MESSAGE, {
@@ -105,36 +105,36 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.random.word(),
       successCondition: faker.datatype.array(),
-    });
-  });
+    })
+  })
 
   describe("IncludedInArray", () => {
-    const array = faker.datatype.array(9);
-    const item = array[0];
+    const array = faker.datatype.array(9)
+    const item = array[0]
     function decorator(error?: any) {
-      return IncludedInArray(array, error);
+      return IncludedInArray(array, error)
     }
     validateDecorator(decorator, INCLUDED_IN_ARRAY_MESSAGE(array), {
       errorCondition1: `${item}500`,
       errorCondition2: null,
       errorCondition3: true,
       successCondition: item,
-    });
-  });
+    })
+  })
 
   describe("NotIncludedInArray", () => {
-    const array = faker.datatype.array(9);
-    const item = array[0];
+    const array = faker.datatype.array(9)
+    const item = array[0]
     function decorator(error?: any) {
-      return NotIncludedInArray(array, error);
+      return NotIncludedInArray(array, error)
     }
     validateDecorator(decorator, NOT_INCLUDED_IN_ARRAY_MESSAGE(array), {
       errorCondition1: array[1],
       errorCondition2: item,
       errorCondition3: array[5],
       successCondition: `${item}500`,
-    });
-  });
+    })
+  })
 
   describe("NumberType", () => {
     validateDecorator(NumberType, NUMBER_TYPE_MESSAGE, {
@@ -142,8 +142,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.random.word(),
       successCondition: faker.datatype.number(),
-    });
-  });
+    })
+  })
 
   describe("BooleanType", () => {
     validateDecorator(BooleanType, BOOLEAN_TYPE_MESSAGE, {
@@ -151,8 +151,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.random.word(),
       successCondition: faker.datatype.boolean(),
-    });
-  });
+    })
+  })
 
   describe("JsonString", () => {
     validateDecorator(JsonString, JSON_STRING_MESSAGE, {
@@ -160,13 +160,13 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.random.word(),
       successCondition: faker.datatype.json(),
-    });
-  });
+    })
+  })
 
   describe("StringMatchingRegex", () => {
-    const regex = /^hello$/;
+    const regex = /^hello$/
     function decorator(error?: any) {
-      return StringMatchingRegex(regex, error);
+      return StringMatchingRegex(regex, error)
     }
 
     validateDecorator(decorator, STRING_MATCHING_REGEX_MESSAGE(regex), {
@@ -174,8 +174,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.address.city(),
       successCondition: "hello",
-    });
-  });
+    })
+  })
 
   describe("NumericString", () => {
     validateDecorator(NumericString, NUMERIC_STRING_MESSAGE, {
@@ -183,8 +183,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: "5522d",
       successCondition: "456250",
-    });
-  });
+    })
+  })
 
   describe("AlphanumericString", () => {
     validateDecorator(AlphanumericString, ALPHANUMERIC_STRING_MESSAGE, {
@@ -192,8 +192,8 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.number(),
       successCondition: "456250as",
-    });
-  });
+    })
+  })
 
   describe("Integer", () => {
     validateDecorator(Integer, INTEGER_MESSAGE, {
@@ -201,15 +201,15 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.float(),
       successCondition: 12,
-    });
-  });
+    })
+  })
 
   describe("CustomValidation - Combining validations", () => {
     const MY_ERROR_CONDITION = (value: any): boolean =>
-      IS_JSON_STRING(value) || NOT_STRING(value);
+      IS_JSON_STRING(value) || NOT_STRING(value)
 
     function decorator(error?: any) {
-      return CustomValidation(MY_ERROR_CONDITION, error);
+      return CustomValidation(MY_ERROR_CONDITION, error)
     }
 
     validateDecorator(decorator, CUSTOM_VALIDATION_MESSAGE, {
@@ -217,15 +217,15 @@ describe("Property Validation Decorators", () => {
       errorCondition2: null,
       errorCondition3: faker.datatype.json(),
       successCondition: faker.random.word(),
-    });
-  });
+    })
+  })
 
   describe("CustomValidation - Creating own validation", () => {
-    const errorStr = faker.random.word();
-    const MY_ERROR_CONDITION = (value: any): boolean => value === errorStr;
+    const errorStr = faker.random.word()
+    const MY_ERROR_CONDITION = (value: any): boolean => value === errorStr
 
     function decorator(error?: any) {
-      return CustomValidation(MY_ERROR_CONDITION, error);
+      return CustomValidation(MY_ERROR_CONDITION, error)
     }
 
     validateDecorator(decorator, CUSTOM_VALIDATION_MESSAGE, {
@@ -233,6 +233,6 @@ describe("Property Validation Decorators", () => {
       errorCondition2: errorStr,
       errorCondition3: errorStr,
       successCondition: undefined,
-    });
-  });
-});
+    })
+  })
+})

@@ -1,8 +1,8 @@
-import express from "express";
-import router from "./router";
+import express from "express"
+import router from "./router"
 
-const app = express();
+const app = express()
 
-app.use(router);
+app.use(router)
 
-app.listen(3000);
+app.listen(3000)

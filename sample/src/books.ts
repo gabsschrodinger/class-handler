@@ -1,33 +1,33 @@
-import { ArrayType, CatchMany, StringType } from "class-handler";
-import { BAD_REQUEST_ERROR } from "./error";
+import { ArrayType, CatchMany, StringType } from "class-handler"
+import { BAD_REQUEST_ERROR } from "./error"
 
 interface BookSchema {
-  title: string;
-  author: string;
-  description: string;
-  genres: Array<string>;
+  title: string
+  author: string
+  description: string
+  genres: Array<string>
 }
 
 @CatchMany(BAD_REQUEST_ERROR, "messages")
 export class Book {
   @StringType()
-  title: string;
+  title: string
 
   @StringType()
-  author: string;
+  author: string
 
   @StringType()
-  description: string;
+  description: string
 
   @ArrayType()
-  genres: Array<string>;
+  genres: Array<string>
 
   constructor({ title, author, description, genres }: BookSchema) {
-    this.title = title;
-    this.author = author;
-    this.description = description;
-    this.genres = genres;
+    this.title = title
+    this.author = author
+    this.description = description
+    this.genres = genres
   }
 }
 
-export const books: Array<Book> = [];
+export const books: Array<Book> = []

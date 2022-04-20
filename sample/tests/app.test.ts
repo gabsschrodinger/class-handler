@@ -1,15 +1,15 @@
-import request from "supertest";
-import express from "express";
-import router from "../src/router";
-import faker from "@faker-js/faker";
+import request from "supertest"
+import express from "express"
+import router from "../src/router"
+import faker from "@faker-js/faker"
 
-const app = express();
-app.use(router);
+const app = express()
+app.use(router)
 
-const title = faker.random.words(3);
-const author = faker.name.firstName();
-const description = faker.random.words(5);
-const genres = [faker.random.word()];
+const title = faker.random.words(3)
+const author = faker.name.firstName()
+const description = faker.random.words(5)
+const genres = [faker.random.word()]
 
 describe("App", () => {
   it("should return empty array when first calling GET /books", async () => {
@@ -17,16 +17,16 @@ describe("App", () => {
       .get("/books")
       .expect(200)
       .then((response) => {
-        expect(response.body).toEqual([]);
-      });
-  });
+        expect(response.body).toEqual([])
+      })
+  })
 
   it("should create book when calling POST /books with valid request body", async () => {
     await request(app)
       .post("/books")
       .send({ title, author, description, genres })
-      .expect(201);
-  });
+      .expect(201)
+  })
 
   it("should return BAD REQUEST when calling POST /books with invalid request body", async () => {
     await request(app)
@@ -37,9 +37,9 @@ describe("App", () => {
         expect(response.body).toEqual({
           messages: ["Field genres of class Book must be an array"],
           statusCode: 400,
-        });
-      });
-  });
+        })
+      })
+  })
 
   it("should return the existing book when calling GET /books", async () => {
     await request(app)
@@ -53,7 +53,7 @@ describe("App", () => {
             description,
             genres,
           },
-        ]);
-      });
-  });
-});
+        ])
+      })
+  })
+})
