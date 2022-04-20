@@ -16,7 +16,8 @@
   "tsconfigFile": "tsconfig.json",
   "mutate": [
     "src/**/*.ts",
-    "!src/constants.ts"
+    "!src/constants.ts",
+    "!sample/**/*.ts"
   ],
   "timeoutMS": 200000
 }
