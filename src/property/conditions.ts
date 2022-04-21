@@ -1,39 +1,43 @@
 import validator from "validator"
 
-export function isEmail(value: any): boolean {
-  try {
-    return !validator.isEmail(value)
-  } catch (_error) {
-    return true
-  }
+export function isString(value: any): boolean {
+  return typeof value === "string" || value instanceof String
 }
 
-export function isString(value: any): boolean {
-  return !(typeof value === "string" || value instanceof String)
+export function isEmail(value: any): boolean {
+  return isString(value) && validator.isEmail(value)
 }
 
 export function isNumber(value: any): boolean {
-  return !(typeof value === "number" || value instanceof Number)
+  return typeof value === "number" || value instanceof Number
 }
 
 export function isNumberGreaterThan(threshold: number) {
-  return (value: any): boolean => isNumber(value) || value <= threshold
+  return function (value: any): boolean {
+    return isNumber(value) && value > threshold
+  }
 }
 
 export function isNumberLessThan(threshold: number) {
-  return (value: any): boolean => isNumber(value) || value >= threshold
+  return function (value: any): boolean {
+    return isNumber(value) && value < threshold
+  }
 }
 
 export function isBoolean(value: any): boolean {
-  return !(typeof value === "boolean" || value instanceof Boolean)
+  return typeof value === "boolean" || value instanceof Boolean
 }
 
 export function isNotNull(value: any): boolean {
-  return value === null || value === undefined || value === ""
+  return !(value === null || value === undefined || value === "")
+}
+
+export function isObject(value: any): boolean {
+  return typeof value === "object" && !Array.isArray(value) && value !== null
 }
 
 export function isNotObject(value: any): boolean {
-  return typeof value === "object" && !Array.isArray(value) && value !== null
+  return !isObject(value)
 }
 
 export function isNotJsonString(value: any): boolean {
@@ -41,7 +45,7 @@ export function isNotJsonString(value: any): boolean {
     const parsed = JSON.parse(value)
     return isNotObject(parsed)
   } catch (_error) {
-    return false
+    return true
   }
 }
 
@@ -50,19 +54,25 @@ export function isJsonString(value: any): boolean {
 }
 
 export function isArray(value: any): boolean {
-  return !Array.isArray(value)
+  return Array.isArray(value)
 }
 
 export function isNotInArray(arr: Array<any>) {
-  return (value: any): boolean => arr.includes(value)
+  return function (value: any): boolean {
+    return !arr.includes(value)
+  }
 }
 
 export function isInArray(arr: Array<any>) {
-  return (value: any): boolean => !arr.includes(value)
+  return function (value: any): boolean {
+    return arr.includes(value)
+  }
 }
 
 export function isStringMatchingRegex(regex: RegExp) {
-  return (value: any): boolean => isString(value) || !regex.test(value)
+  return function (value: any): boolean {
+    return isString(value) && regex.test(value)
+  }
 }
 
 export function isNumericString(value: any) {
@@ -74,5 +84,5 @@ export function isAlphanumericString(value: any) {
 }
 
 export function isInteger(value: any) {
-  return isNumber(value) || !Number.isInteger(value)
+  return isNumber(value) && Number.isInteger(value)
 }

@@ -205,11 +205,11 @@ describe("Property Validation Decorators", () => {
   })
 
   describe("CustomValidation - Combining validations", () => {
-    const MY_ERROR_CONDITION = (value: any): boolean =>
-      isNotJsonString(value) || isString(value)
+    const successCondition = (value: any): boolean =>
+      isNotJsonString(value) && isString(value)
 
     function decorator(error?: any) {
-      return CustomValidation(MY_ERROR_CONDITION, error)
+      return CustomValidation(successCondition, error)
     }
 
     validateDecorator(decorator, CUSTOM_VALIDATION_MESSAGE, {
@@ -222,10 +222,10 @@ describe("Property Validation Decorators", () => {
 
   describe("CustomValidation - Creating own validation", () => {
     const errorStr = faker.random.word()
-    const MY_ERROR_CONDITION = (value: any): boolean => value === errorStr
+    const successCondition = (value: any): boolean => !(value === errorStr)
 
     function decorator(error?: any) {
-      return CustomValidation(MY_ERROR_CONDITION, error)
+      return CustomValidation(successCondition, error)
     }
 
     validateDecorator(decorator, CUSTOM_VALIDATION_MESSAGE, {

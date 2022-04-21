@@ -99,16 +99,18 @@ function initValidation(prototypeTarget: Object, key: string) {
 }
 
 function baseValidation(
-  errorCondition: boolean,
+  successCondition: boolean,
   error: Object | string | Error
-) {
-  if (errorCondition) {
-    if (typeof error === "string" || error instanceof String) {
-      throw new Error(error as string)
-    }
-
-    throw error
+): void {
+  if (successCondition) {
+    return
   }
+
+  if (typeof error === "string" || error instanceof String) {
+    throw new Error(error as string)
+  }
+
+  throw error
 }
 
 function addValidation(
@@ -120,7 +122,7 @@ function addValidation(
 }
 
 export function validationDecorator(
-  errorCondition: (value: any) => boolean,
+  successCondition: (value: any) => boolean,
   error: ValidationError
 ): PropertyDecorator {
   return function (prototypeTarget: Object, key: string): void {
@@ -130,7 +132,7 @@ export function validationDecorator(
     }
 
     const validation = (value: any) =>
-      baseValidation(errorCondition(value), errorMessage || error)
+      baseValidation(successCondition(value), errorMessage || error)
 
     initValidation(prototypeTarget, key)
 
