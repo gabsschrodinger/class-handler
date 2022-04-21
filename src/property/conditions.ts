@@ -57,6 +57,12 @@ export function isArray(value: any): boolean {
   return Array.isArray(value)
 }
 
+export function isArrayOf(itemsSuccessCondition: (item: any) => boolean) {
+  return function (value: any) {
+    return isArray(value) && value.every(itemsSuccessCondition)
+  }
+}
+
 export function isNotInArray(arr: Array<any>) {
   return function (value: any): boolean {
     return !arr.includes(value)

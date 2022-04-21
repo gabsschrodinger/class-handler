@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker"
 import {
   ALPHANUMERIC_STRING_MESSAGE,
+  ARRAY_OF_MESSAGE,
   ARRAY_TYPE_MESSAGE,
   BOOLEAN_TYPE_MESSAGE,
   CUSTOM_VALIDATION_MESSAGE,
@@ -19,6 +20,7 @@ import {
 } from "../src/property/messages"
 import {
   AlphanumericString,
+  ArrayOf,
   ArrayType,
   BooleanType,
   CustomValidation,
@@ -38,6 +40,7 @@ import {
 import { isNotJsonString, isString } from "../src/property/conditions"
 
 import { validateDecorator } from "./helpers/propertyValidation"
+import { ValidationError } from "../src/types"
 
 describe("Property Validation Decorators", () => {
   describe("NotNull", () => {
@@ -215,6 +218,32 @@ describe("Property Validation Decorators", () => {
       errorScenario3: faker.datatype.float(),
       errorScenario4: faker.datatype.boolean(),
       successScenario1: 12,
+    })
+  })
+
+  describe("ArrayOf", () => {
+    function decorator(error?: any) {
+      return ArrayOf(isString, error)
+    }
+
+    validateDecorator(decorator, ARRAY_OF_MESSAGE, {
+      errorScenario1: faker.datatype.json(),
+      errorScenario2: null,
+      errorScenario3: [
+        faker.random.word(),
+        faker.datatype.json(),
+        faker.datatype.number(),
+      ],
+      errorScenario4: [
+        faker.random.word,
+        faker.datatype.json(),
+        faker.datatype.array(),
+      ],
+      successScenario1: [
+        faker.random.word(),
+        faker.datatype.json(),
+        faker.name.firstName(),
+      ],
     })
   })
 

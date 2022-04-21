@@ -1,5 +1,6 @@
 import {
   ALPHANUMERIC_STRING_MESSAGE,
+  ARRAY_OF_MESSAGE,
   ARRAY_TYPE_MESSAGE,
   BOOLEAN_TYPE_MESSAGE,
   CUSTOM_VALIDATION_MESSAGE,
@@ -32,6 +33,7 @@ import {
   isStringMatchingRegex,
   isNumberGreaterThan,
   isNumberLessThan,
+  isArrayOf,
 } from "./conditions"
 
 import { ValidationError } from "../types"
@@ -188,6 +190,20 @@ export function AlphanumericString(error?: ValidationError): PropertyDecorator {
  */
 export function Integer(error?: ValidationError): PropertyDecorator {
   return validationDecorator(isInteger, error ?? INTEGER_MESSAGE)
+}
+
+/**
+ * Property validation decorator.
+ * Validate if a property value is array that follows the given success condition when the class is instantiated.
+ */
+export function ArrayOf(
+  successCondition: (item: any) => boolean,
+  error?: ValidationError
+): PropertyDecorator {
+  return validationDecorator(
+    isArrayOf(successCondition),
+    error ?? ARRAY_OF_MESSAGE
+  )
 }
 
 /**

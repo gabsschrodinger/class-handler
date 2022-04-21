@@ -50,3 +50,6 @@ export const ALPHANUMERIC_STRING_MESSAGE = (className: string, field: string) =>
 
 export const INTEGER_MESSAGE = (className: string, field: string) =>
   `Field ${field} of class ${className} must be an integer`
+
+export const ARRAY_OF_MESSAGE = (className: string, field: string) =>
+  `Field ${field} of class ${className} is not a valid array`
