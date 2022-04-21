@@ -35,7 +35,7 @@ import {
   StringMatchingRegex,
   StringType,
 } from "../src"
-import { IS_JSON_STRING, NOT_STRING } from "../src/property/conditions"
+import { isNotJsonString, isString } from "../src/property/conditions"
 
 import { validateDecorator } from "./helpers/propertyValidation"
 
@@ -206,7 +206,7 @@ describe("Property Validation Decorators", () => {
 
   describe("CustomValidation - Combining validations", () => {
     const MY_ERROR_CONDITION = (value: any): boolean =>
-      IS_JSON_STRING(value) || NOT_STRING(value)
+      isNotJsonString(value) || isString(value)
 
     function decorator(error?: any) {
       return CustomValidation(MY_ERROR_CONDITION, error)

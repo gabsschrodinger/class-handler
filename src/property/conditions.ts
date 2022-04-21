@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import validator from "validator"
 
-export function NOT_EMAIL(value: any): boolean {
+export function isEmail(value: any): boolean {
   try {
     return !validator.isEmail(value)
   } catch (_error) {
@@ -9,71 +8,71 @@ export function NOT_EMAIL(value: any): boolean {
   }
 }
 
-export function NOT_STRING(value: any): boolean {
+export function isString(value: any): boolean {
   return !(typeof value === "string" || value instanceof String)
 }
 
-export function NOT_NUMBER(value: any): boolean {
+export function isNumber(value: any): boolean {
   return !(typeof value === "number" || value instanceof Number)
 }
 
-export function NUMBER_LESS_OR_EQUAL_THAN(threshold: number) {
-  return (value: any): boolean => NOT_NUMBER(value) || value <= threshold
+export function isNumberGreaterThan(threshold: number) {
+  return (value: any): boolean => isNumber(value) || value <= threshold
 }
 
-export function NUMBER_GREATER_OR_EQUAL_THAN(threshold: number) {
-  return (value: any): boolean => NOT_NUMBER(value) || value >= threshold
+export function isNumberLessThan(threshold: number) {
+  return (value: any): boolean => isNumber(value) || value >= threshold
 }
 
-export function NOT_BOOLEAN(value: any): boolean {
+export function isBoolean(value: any): boolean {
   return !(typeof value === "boolean" || value instanceof Boolean)
 }
 
-export function IS_NULL(value: any): boolean {
+export function isNotNull(value: any): boolean {
   return value === null || value === undefined || value === ""
 }
 
-export function IS_OBJECT(value: any): boolean {
+export function isNotObject(value: any): boolean {
   return typeof value === "object" && !Array.isArray(value) && value !== null
 }
 
-export function IS_JSON_STRING(value: any): boolean {
+export function isNotJsonString(value: any): boolean {
   try {
     const parsed = JSON.parse(value)
-    return IS_OBJECT(parsed)
+    return isNotObject(parsed)
   } catch (_error) {
     return false
   }
 }
 
-export function NOT_JSON_STRING(value: any): boolean {
-  return !IS_JSON_STRING(value)
+export function isJsonString(value: any): boolean {
+  return !isNotJsonString(value)
 }
 
-export function NOT_ARRAY(value: any): boolean {
+export function isArray(value: any): boolean {
   return !Array.isArray(value)
 }
 
-export function IS_IN_ARRAY(arr: Array<any>) {
+export function isNotInArray(arr: Array<any>) {
   return (value: any): boolean => arr.includes(value)
 }
 
-export function NOT_IN_ARRAY(arr: Array<any>) {
+export function isInArray(arr: Array<any>) {
   return (value: any): boolean => !arr.includes(value)
 }
 
-export function NOT_STRING_MATCHING_REGEX(regex: RegExp) {
-  return (value: any): boolean => NOT_STRING(value) || !regex.test(value)
+export function isStringMatchingRegex(regex: RegExp) {
+  return (value: any): boolean => isString(value) || !regex.test(value)
 }
 
-export function NOT_NUMERIC_STRING(value: any) {
-  return NOT_STRING_MATCHING_REGEX(/^\d+$/)(value)
+export function isNumericString(value: any) {
+  return isStringMatchingRegex(/^\d+$/)(value)
 }
 
-export function NOT_ALPHANUMERIC_STRING(value: any) {
-  return NOT_STRING_MATCHING_REGEX(/^[a-z\d]+$/i)(value)
+export function isAlphanumericString(value: any) {
+  return isStringMatchingRegex(/^[a-z\d]+$/i)(value)
 }
 
-export function NOT_INTEGER(value: any) {
-  return NOT_NUMBER(value) || !Number.isInteger(value)
+export function isInteger(value: any) {
+  return isNumber(value) || !Number.isInteger(value)
 }

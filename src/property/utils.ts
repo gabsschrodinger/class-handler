@@ -122,7 +122,7 @@ function addValidation(
 export function validationDecorator(
   errorCondition: (value: any) => boolean,
   error: ValidationError
-) {
+): PropertyDecorator {
   return function (prototypeTarget: Object, key: string): void {
     let errorMessage: string
     if (typeof error === "function") {
