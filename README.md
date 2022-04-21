@@ -36,80 +36,76 @@ The library provides a few ready-to-use property decorators, as well as tools to
 ### Example 1: without CatchMany
 
 ```typescript
-import { NotNull } from "class-handler";
+import { NotNull } from "class-handler"
 
 class SomeClass {
   @NotNull({ error: "some-error" })
-  someField: string;
+  someField: string
 
   constructor(someField?: string) {
-    this.someField = someField;
+    this.someField = someField
   }
 }
 
-let exception;
+let exception
 
 try {
-  new SomeClass();
+  new SomeClass()
 } catch (error) {
-  exception = error;
+  exception = error
 }
 
-console.log(exception); // { error: "some-error" }
+console.log(exception) // { error: "some-error" }
 ```
 
 ### Example 2: with CatchMany
 
 ```typescript
-import {
-  NotNull,
-  CatchMany,
-  StringType,
-  validateInstance,
-} from "class-handler";
+import { NotNull, CatchMany, StringType, validateInstance } from "class-handler"
 
 @CatchMany({ errorMessages: [] }, "errorMessages")
 class SomeClass {
   @NotNull("some field should not be null")
   @StringType("some field should be a string type")
-  someField?: any;
+  someField?: any
 
   constructor(someField?: any) {
-    this.someField = someField;
+    this.someField = someField
   }
 }
 
-let exception;
-const someInstance = new SomeClass();
+let exception
+const someInstance = new SomeClass()
 
 try {
-  validateInstance(someInstance);
+  validateInstance(someInstance)
 } catch (error) {
-  exception = error;
+  exception = error
 }
 
-console.log(exception); // { errorMessages: ["some field should be a string type", "some field should not be null"] }
+console.log(exception) // { errorMessages: ["some field should be a string type", "some field should not be null"] }
 ```
 
 ### Built in property decorators
 
-| Decorator           | Error condition                                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------- |
-| NotNull             | null, undefined or empty string                                                                |
-| Email               | not matching the email string pattern (string@string.string)                                   |
-| StringType          | not being a string type according to typescript/javascript                                     |
-| NumberType          | not being a number type according to typescript/javascript                                     |
-| BooleanType         | not being a boolean type according to typescript/javascript                                    |
-| ArrayType           | not being an array according to typescript/javascript                                          |
-| IncludedInArray     | not being an item of the given array (first parameter)                                         |
-| NotIncludedInArray  | being an item of the given array (first parameter)                                             |
-| JsonString          | not being a string parsable to a JSON object/array                                             |
-| NumberGreaterThan   | not being a number or being a number less or equal than a given threshold (first parameter)    |
-| NumberLessThan      | not being a number or being a number greater or equal than a given threshold (first parameter) |
-| StringMatchingRegex | not being a string or don't matching the given regex (first parameter)                         |
-| NumericString       | not being a string or being a string with non-numeric chars                                    |
-| AlphanumericString  | not being a string or being a string with non-alphanumeric chars                               |
-| Integer             | not being a number or not being an integer                                                     |
+| Decorator           | Error condition                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------- |
+| NotNull             | null, undefined or empty string                                                                      |
+| Email               | not matching the email string pattern (string@string.string)                                         |
+| StringType          | not being a string type according to typescript/javascript                                           |
+| NumberType          | not being a number type according to typescript/javascript                                           |
+| BooleanType         | not being a boolean type according to typescript/javascript                                          |
+| ArrayType           | not being an array according to typescript/javascript                                                |
+| IncludedInArray     | not being an item of the given array (first parameter)                                               |
+| NotIncludedInArray  | being an item of the given array (first parameter)                                                   |
+| JsonString          | not being a string parsable to a JSON object/array                                                   |
+| NumberGreaterThan   | not being a number or being a number less or equal than a given threshold (first parameter)          |
+| NumberLessThan      | not being a number or being a number greater or equal than a given threshold (first parameter)       |
+| StringMatchingRegex | not being a string or don't matching the given regex (first parameter)                               |
+| NumericString       | not being a string or being a string with non-numeric chars                                          |
+| AlphanumericString  | not being a string or being a string with non-alphanumeric chars                                     |
+| Integer             | not being a number or not being an integer                                                           |
+| ArrayOf             | not being an array or having any array item that does't pass the success condition (first parameter) |
 
 ### CustomValidation decorator
 
@@ -118,28 +114,28 @@ The CustomValidation decorator receives a condition, which is a function that re
 ### Example
 
 ```typescript
-import { CustomValidation } from "class-handler";
+import { CustomValidation } from "class-handler"
 
-const isLessThanTenValidation = (value: any) => value < 10;
+const isLessThanTenValidation = (value: any) => value < 10
 
 class SomeClass {
   @CustomValidation(isLessThanTenValidation, { error: "Value is less than 10" })
-  someField: number;
+  someField: number
 
   constructor(someField: number) {
-    this.someField = someField;
+    this.someField = someField
   }
 }
 
-let exception: any;
+let exception: any
 
 try {
-  new SomeClass(5);
+  new SomeClass(5)
 } catch (error) {
-  exception = error;
+  exception = error
 }
 
-console.log(exception); // { error: "Value is less than 10" }
+console.log(exception) // { error: "Value is less than 10" }
 ```
 
 ### validationDecorator function
@@ -149,32 +145,32 @@ With the validationDecorator function, you can easily create your own property v
 ### Example
 
 ```typescript
-import { validationDecorator } from "class-handler";
+import { validationDecorator } from "class-handler"
 
-const isLessThanTenValidation = (value: any) => value < 10;
+const isLessThanTenValidation = (value: any) => value < 10
 
 const GreaterThanTen = validationDecorator(isLessThanTenValidation, {
   error: "Value is less than 10",
-});
+})
 
 class SomeClass {
   @GreaterThanTen
-  someField: number;
+  someField: number
 
   constructor(someField: number) {
-    this.someField = someField;
+    this.someField = someField
   }
 }
 
-let exception: any;
+let exception: any
 
 try {
-  new SomeClass(5);
+  new SomeClass(5)
 } catch (error) {
-  exception = error;
+  exception = error
 }
 
-console.log(exception); // { error: "Value is less than 10" }
+console.log(exception) // { error: "Value is less than 10" }
 ```
 
 Another way to use the validationDecorator function is returning the function, instead of its result. This is useful in case you want to pass parameters to your own decorator.
@@ -182,34 +178,34 @@ Another way to use the validationDecorator function is returning the function, i
 ### Example
 
 ```typescript
-import { validationDecorator } from "class-handler";
+import { validationDecorator } from "class-handler"
 
-const isLessThanTenValidation = (value: any) => value < 10;
+const isLessThanTenValidation = (value: any) => value < 10
 
 function GreaterThanTen(error: Object | string | Error) {
-  return validationDecorator(isLessThanTenValidation, error);
+  return validationDecorator(isLessThanTenValidation, error)
 }
 
 class SomeClass {
   @GreaterThanTen({
     error: "Value is less than 10",
   })
-  someField: number;
+  someField: number
 
   constructor(someField: number) {
-    this.someField = someField;
+    this.someField = someField
   }
 }
 
-let exception: any;
+let exception: any
 
 try {
-  new SomeClass(5);
+  new SomeClass(5)
 } catch (error) {
-  exception = error;
+  exception = error
 }
 
-console.log(exception); // { error: "Value is less than 10" }
+console.log(exception) // { error: "Value is less than 10" }
 ```
 
 Both of these alternative decorators work the same way as the ready-to-use decorators, including with and without the CatchMany decorator.

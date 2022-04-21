@@ -43,7 +43,7 @@ import { validationDecorator } from "./utils"
  * Property validation decorator.
  * Validate if a property is not null when the class is instantiated.
  */
-export function NotNull(error?: ValidationError): PropertyDecorator {
+export function NotNull(error?: ValidationError) {
   return validationDecorator(isNotNull, error ?? NOT_NULL_MESSAGE)
 }
 
@@ -51,7 +51,7 @@ export function NotNull(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property is a valid email when the class is instantiated.
  */
-export function Email(error?: ValidationError): PropertyDecorator {
+export function Email(error?: ValidationError) {
   return validationDecorator(isEmail, error ?? EMAIL_MESSAGE)
 }
 
@@ -59,7 +59,7 @@ export function Email(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property is of type string when the class is instantiated.
  */
-export function StringType(error?: ValidationError): PropertyDecorator {
+export function StringType(error?: ValidationError) {
   return validationDecorator(isString, error ?? STRING_TYPE_MESSAGE)
 }
 
@@ -67,7 +67,7 @@ export function StringType(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property is of type number when the class is instantiated.
  */
-export function NumberType(error?: ValidationError): PropertyDecorator {
+export function NumberType(error?: ValidationError) {
   return validationDecorator(isNumber, error ?? NUMBER_TYPE_MESSAGE)
 }
 
@@ -75,10 +75,7 @@ export function NumberType(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property is of type number and if the number is greater than the given threshold when the class is instantiated.
  */
-export function NumberGreaterThan(
-  threshold: number,
-  error?: ValidationError
-): PropertyDecorator {
+export function NumberGreaterThan(threshold: number, error?: ValidationError) {
   return validationDecorator(
     isNumberGreaterThan(threshold),
     error ?? NUMBER_GREATER_THAN_MESSAGE(threshold)
@@ -89,10 +86,7 @@ export function NumberGreaterThan(
  * Property validation decorator.
  * Validate if a property is of type number and if the number is less than the given threshold when the class is instantiated.
  */
-export function NumberLessThan(
-  threshold: number,
-  error?: ValidationError
-): PropertyDecorator {
+export function NumberLessThan(threshold: number, error?: ValidationError) {
   return validationDecorator(
     isNumberLessThan(threshold),
     error ?? NUMBER_LESS_THAN_MESSAGE(threshold)
@@ -103,7 +97,7 @@ export function NumberLessThan(
  * Property validation decorator.
  * Validate if a property is an array when the class is instantiated.
  */
-export function ArrayType(error?: ValidationError): PropertyDecorator {
+export function ArrayType(error?: ValidationError) {
   return validationDecorator(isArray, error ?? ARRAY_TYPE_MESSAGE)
 }
 
@@ -111,10 +105,7 @@ export function ArrayType(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property is included in a given array when the class is instantiated.
  */
-export function IncludedInArray(
-  array: Array<any>,
-  error?: ValidationError
-): PropertyDecorator {
+export function IncludedInArray(array: Array<any>, error?: ValidationError) {
   return validationDecorator(
     isInArray(array),
     error ?? INCLUDED_IN_ARRAY_MESSAGE(array)
@@ -125,10 +116,7 @@ export function IncludedInArray(
  * Property validation decorator.
  * Validate if a property is not included in a given array when the class is instantiated.
  */
-export function NotIncludedInArray(
-  array: Array<any>,
-  error?: ValidationError
-): PropertyDecorator {
+export function NotIncludedInArray(array: Array<any>, error?: ValidationError) {
   return validationDecorator(
     isNotInArray(array),
     error ?? NOT_INCLUDED_IN_ARRAY_MESSAGE(array)
@@ -139,7 +127,7 @@ export function NotIncludedInArray(
  * Property validation decorator.
  * Validate if a property is of type boolean when the class is instantiated.
  */
-export function BooleanType(error?: ValidationError): PropertyDecorator {
+export function BooleanType(error?: ValidationError) {
   return validationDecorator(isBoolean, error ?? BOOLEAN_TYPE_MESSAGE)
 }
 
@@ -147,7 +135,7 @@ export function BooleanType(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property is a valid JSON string when the class is instantiated.
  */
-export function JsonString(error?: ValidationError): PropertyDecorator {
+export function JsonString(error?: ValidationError) {
   return validationDecorator(isJsonString, error ?? JSON_STRING_MESSAGE)
 }
 
@@ -155,10 +143,7 @@ export function JsonString(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property value matches a given regex (first parameter) when the class is instantiated.
  */
-export function StringMatchingRegex(
-  regex: RegExp,
-  error?: ValidationError
-): PropertyDecorator {
+export function StringMatchingRegex(regex: RegExp, error?: ValidationError) {
   return validationDecorator(
     isStringMatchingRegex(regex),
     error ?? STRING_MATCHING_REGEX_MESSAGE(regex)
@@ -169,7 +154,7 @@ export function StringMatchingRegex(
  * Property validation decorator.
  * Validate if a property value is a numeric string when the class is instantiated.
  */
-export function NumericString(error?: ValidationError): PropertyDecorator {
+export function NumericString(error?: ValidationError) {
   return validationDecorator(isNumericString, error ?? NUMERIC_STRING_MESSAGE)
 }
 
@@ -177,7 +162,7 @@ export function NumericString(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property value is a alphanumeric string when the class is instantiated.
  */
-export function AlphanumericString(error?: ValidationError): PropertyDecorator {
+export function AlphanumericString(error?: ValidationError) {
   return validationDecorator(
     isAlphanumericString,
     error ?? ALPHANUMERIC_STRING_MESSAGE
@@ -188,7 +173,7 @@ export function AlphanumericString(error?: ValidationError): PropertyDecorator {
  * Property validation decorator.
  * Validate if a property value is a alphanumeric string when the class is instantiated.
  */
-export function Integer(error?: ValidationError): PropertyDecorator {
+export function Integer(error?: ValidationError) {
   return validationDecorator(isInteger, error ?? INTEGER_MESSAGE)
 }
 
@@ -199,7 +184,7 @@ export function Integer(error?: ValidationError): PropertyDecorator {
 export function ArrayOf(
   successCondition: (item: any) => boolean,
   error?: ValidationError
-): PropertyDecorator {
+) {
   return validationDecorator(
     isArrayOf(successCondition),
     error ?? ARRAY_OF_MESSAGE
@@ -213,6 +198,6 @@ export function ArrayOf(
 export function CustomValidation(
   condition: (value: any) => boolean,
   error?: ValidationError
-): PropertyDecorator {
+) {
   return validationDecorator(condition, error ?? CUSTOM_VALIDATION_MESSAGE)
 }
