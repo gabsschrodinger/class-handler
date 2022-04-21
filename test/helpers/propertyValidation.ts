@@ -1,3 +1,4 @@
+import faker from "@faker-js/faker"
 import { ValidationError } from "../../src/types"
 import * as utils from "../../src/property/utils"
 
@@ -5,6 +6,7 @@ interface TestConditions {
   errorScenario1: any
   errorScenario2: any
   errorScenario3: any
+  errorScenario4: any
   successScenario1: any
 }
 
@@ -15,6 +17,7 @@ export const validateDecorator = (
     errorScenario1,
     errorScenario2,
     errorScenario3,
+    errorScenario4,
     successScenario1,
   }: TestConditions
 ) => {
@@ -94,6 +97,33 @@ export const validateDecorator = (
     expect(decoratorSpy).toHaveBeenCalledWith(
       expect.any(Function),
       expect.any(Function)
+    )
+  })
+
+  it("should throw given error instance when it receives one", () => {
+    let exception: any
+    const errorInstance = new Error(faker.random.word())
+    const decoratorSpy = jest.spyOn(utils, "validationDecorator")
+
+    class SomeClass {
+      @TestedDecorator(errorInstance)
+      someField: any
+
+      constructor(someField?: any) {
+        this.someField = someField
+      }
+    }
+
+    try {
+      new SomeClass(errorScenario4)
+    } catch (error) {
+      exception = error
+    }
+
+    expect(exception).toEqual(errorInstance)
+    expect(decoratorSpy).toHaveBeenCalledWith(
+      expect.any(Function),
+      errorInstance
     )
   })
 

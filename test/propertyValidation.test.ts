@@ -45,6 +45,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: undefined,
       errorScenario2: null,
       errorScenario3: "",
+      errorScenario4: null,
       successScenario1: faker.random.word(),
     })
   })
@@ -54,6 +55,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.random.word(),
       errorScenario2: null,
       errorScenario3: faker.datatype.uuid(),
+      errorScenario4: faker.datatype.json(),
       successScenario1: faker.internet.email(),
     })
   })
@@ -63,6 +65,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.array(),
       errorScenario2: null,
       errorScenario3: faker.datatype.number(),
+      errorScenario4: faker.datatype.boolean(),
       successScenario1: faker.random.word(),
     })
   })
@@ -76,6 +79,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.array(),
       errorScenario2: threshold,
       errorScenario3: faker.datatype.number({ min: 0, max: threshold }),
+      errorScenario4: undefined,
       successScenario1: faker.datatype.number({
         min: threshold + 1,
         max: threshold + 20,
@@ -95,15 +99,17 @@ describe("Property Validation Decorators", () => {
         min: threshold,
         max: threshold + 20,
       }),
+      errorScenario4: undefined,
       successScenario1: faker.datatype.number({ min: 0, max: threshold - 1 }),
     })
   })
 
   describe("ArrayType", () => {
     validateDecorator(ArrayType, ARRAY_TYPE_MESSAGE, {
-      errorScenario1: {},
+      errorScenario1: JSON.parse(faker.datatype.json()),
       errorScenario2: null,
       errorScenario3: faker.random.word(),
+      errorScenario4: faker.datatype.number(),
       successScenario1: faker.datatype.array(),
     })
   })
@@ -117,22 +123,23 @@ describe("Property Validation Decorators", () => {
     validateDecorator(decorator, INCLUDED_IN_ARRAY_MESSAGE(array), {
       errorScenario1: `${item}500`,
       errorScenario2: null,
-      errorScenario3: true,
+      errorScenario3: faker.datatype.boolean(),
+      errorScenario4: faker.datatype.array(),
       successScenario1: item,
     })
   })
 
   describe("NotIncludedInArray", () => {
     const array = faker.datatype.array(9)
-    const item = array[0]
     function decorator(error?: any) {
       return NotIncludedInArray(array, error)
     }
     validateDecorator(decorator, NOT_INCLUDED_IN_ARRAY_MESSAGE(array), {
       errorScenario1: array[1],
-      errorScenario2: item,
+      errorScenario2: array[0],
       errorScenario3: array[5],
-      successScenario1: `${item}500`,
+      errorScenario4: array[3],
+      successScenario1: `${array[0]}500`,
     })
   })
 
@@ -141,6 +148,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.array(),
       errorScenario2: null,
       errorScenario3: faker.random.word(),
+      errorScenario4: faker.datatype.boolean(),
       successScenario1: faker.datatype.number(),
     })
   })
@@ -150,6 +158,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.array(),
       errorScenario2: null,
       errorScenario3: faker.random.word(),
+      errorScenario4: faker.datatype.number(),
       successScenario1: faker.datatype.boolean(),
     })
   })
@@ -159,6 +168,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.number(),
       errorScenario2: null,
       errorScenario3: faker.random.word(),
+      errorScenario4: faker.datatype.array(),
       successScenario1: faker.datatype.json(),
     })
   })
@@ -173,6 +183,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: "not-hello",
       errorScenario2: null,
       errorScenario3: faker.address.city(),
+      errorScenario4: faker.random.words(5),
       successScenario1: "hello",
     })
   })
@@ -182,6 +193,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.random.word(),
       errorScenario2: null,
       errorScenario3: "5522d",
+      errorScenario4: "d5522",
       successScenario1: "456250",
     })
   })
@@ -191,6 +203,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: "!456250as",
       errorScenario2: "456250as!",
       errorScenario3: faker.datatype.number(),
+      errorScenario4: faker.datatype.json(),
       successScenario1: "456250as",
     })
   })
@@ -200,6 +213,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.json(),
       errorScenario2: null,
       errorScenario3: faker.datatype.float(),
+      errorScenario4: faker.datatype.boolean(),
       successScenario1: 12,
     })
   })
@@ -216,6 +230,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: faker.datatype.number(),
       errorScenario2: null,
       errorScenario3: faker.datatype.json(),
+      errorScenario4: faker.datatype.boolean(),
       successScenario1: faker.random.word(),
     })
   })
@@ -232,6 +247,7 @@ describe("Property Validation Decorators", () => {
       errorScenario1: errorStr,
       errorScenario2: errorStr,
       errorScenario3: errorStr,
+      errorScenario4: errorStr,
       successScenario1: undefined,
     })
   })

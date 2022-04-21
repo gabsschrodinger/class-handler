@@ -44,15 +44,7 @@ function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
   const errorObj = instance.constructor.prototype[ERROR_PROP]
 
   if (!instanceError) {
-    setPropValue(
-      instance,
-      INSTANCE_ERROR,
-      { ...errorObj },
-      {
-        configurable: true,
-        writable: true,
-      }
-    )
+    setPropValue(instance, INSTANCE_ERROR, { ...errorObj })
 
     instanceError = getPropValue(instance, INSTANCE_ERROR)
   }
@@ -90,10 +82,7 @@ function getValidationSetter(
 function initValidation(prototypeTarget: Object, key: string) {
   if (getProp(prototypeTarget, `${key}Validations`)) return
 
-  setPropValue(prototypeTarget, `${key}Validations`, [], {
-    configurable: true,
-    writable: true,
-  })
+  setPropValue(prototypeTarget, `${key}Validations`, [])
 
   const newSetter = getValidationSetter(prototypeTarget, key)
   setPropSetter(prototypeTarget, key, newSetter)
