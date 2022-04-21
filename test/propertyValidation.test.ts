@@ -42,28 +42,28 @@ import { validateDecorator } from "./helpers/propertyValidation"
 describe("Property Validation Decorators", () => {
   describe("NotNull", () => {
     validateDecorator(NotNull, NOT_NULL_MESSAGE, {
-      errorCondition1: undefined,
-      errorCondition2: null,
-      errorCondition3: "",
-      successCondition: faker.random.word(),
+      errorScenario1: undefined,
+      errorScenario2: null,
+      errorScenario3: "",
+      successScenario1: faker.random.word(),
     })
   })
 
   describe("Email", () => {
     validateDecorator(Email, EMAIL_MESSAGE, {
-      errorCondition1: faker.random.word(),
-      errorCondition2: null,
-      errorCondition3: faker.datatype.uuid(),
-      successCondition: faker.internet.email(),
+      errorScenario1: faker.random.word(),
+      errorScenario2: null,
+      errorScenario3: faker.datatype.uuid(),
+      successScenario1: faker.internet.email(),
     })
   })
 
   describe("StringType", () => {
     validateDecorator(StringType, STRING_TYPE_MESSAGE, {
-      errorCondition1: faker.datatype.array(),
-      errorCondition2: null,
-      errorCondition3: faker.datatype.number(),
-      successCondition: faker.random.word(),
+      errorScenario1: faker.datatype.array(),
+      errorScenario2: null,
+      errorScenario3: faker.datatype.number(),
+      successScenario1: faker.random.word(),
     })
   })
 
@@ -73,10 +73,10 @@ describe("Property Validation Decorators", () => {
       return NumberGreaterThan(threshold, error)
     }
     validateDecorator(decorator, NUMBER_GREATER_THAN_MESSAGE(threshold), {
-      errorCondition1: faker.datatype.array(),
-      errorCondition2: threshold,
-      errorCondition3: faker.datatype.number({ min: 0, max: threshold }),
-      successCondition: faker.datatype.number({
+      errorScenario1: faker.datatype.array(),
+      errorScenario2: threshold,
+      errorScenario3: faker.datatype.number({ min: 0, max: threshold }),
+      successScenario1: faker.datatype.number({
         min: threshold + 1,
         max: threshold + 20,
       }),
@@ -89,22 +89,22 @@ describe("Property Validation Decorators", () => {
       return NumberLessThan(threshold, error)
     }
     validateDecorator(decorator, NUMBER_LESS_THAN_MESSAGE(threshold), {
-      errorCondition1: faker.datatype.array(),
-      errorCondition2: threshold,
-      errorCondition3: faker.datatype.number({
+      errorScenario1: faker.datatype.array(),
+      errorScenario2: threshold,
+      errorScenario3: faker.datatype.number({
         min: threshold,
         max: threshold + 20,
       }),
-      successCondition: faker.datatype.number({ min: 0, max: threshold - 1 }),
+      successScenario1: faker.datatype.number({ min: 0, max: threshold - 1 }),
     })
   })
 
   describe("ArrayType", () => {
     validateDecorator(ArrayType, ARRAY_TYPE_MESSAGE, {
-      errorCondition1: {},
-      errorCondition2: null,
-      errorCondition3: faker.random.word(),
-      successCondition: faker.datatype.array(),
+      errorScenario1: {},
+      errorScenario2: null,
+      errorScenario3: faker.random.word(),
+      successScenario1: faker.datatype.array(),
     })
   })
 
@@ -115,10 +115,10 @@ describe("Property Validation Decorators", () => {
       return IncludedInArray(array, error)
     }
     validateDecorator(decorator, INCLUDED_IN_ARRAY_MESSAGE(array), {
-      errorCondition1: `${item}500`,
-      errorCondition2: null,
-      errorCondition3: true,
-      successCondition: item,
+      errorScenario1: `${item}500`,
+      errorScenario2: null,
+      errorScenario3: true,
+      successScenario1: item,
     })
   })
 
@@ -129,37 +129,37 @@ describe("Property Validation Decorators", () => {
       return NotIncludedInArray(array, error)
     }
     validateDecorator(decorator, NOT_INCLUDED_IN_ARRAY_MESSAGE(array), {
-      errorCondition1: array[1],
-      errorCondition2: item,
-      errorCondition3: array[5],
-      successCondition: `${item}500`,
+      errorScenario1: array[1],
+      errorScenario2: item,
+      errorScenario3: array[5],
+      successScenario1: `${item}500`,
     })
   })
 
   describe("NumberType", () => {
     validateDecorator(NumberType, NUMBER_TYPE_MESSAGE, {
-      errorCondition1: faker.datatype.array(),
-      errorCondition2: null,
-      errorCondition3: faker.random.word(),
-      successCondition: faker.datatype.number(),
+      errorScenario1: faker.datatype.array(),
+      errorScenario2: null,
+      errorScenario3: faker.random.word(),
+      successScenario1: faker.datatype.number(),
     })
   })
 
   describe("BooleanType", () => {
     validateDecorator(BooleanType, BOOLEAN_TYPE_MESSAGE, {
-      errorCondition1: faker.datatype.array(),
-      errorCondition2: null,
-      errorCondition3: faker.random.word(),
-      successCondition: faker.datatype.boolean(),
+      errorScenario1: faker.datatype.array(),
+      errorScenario2: null,
+      errorScenario3: faker.random.word(),
+      successScenario1: faker.datatype.boolean(),
     })
   })
 
   describe("JsonString", () => {
     validateDecorator(JsonString, JSON_STRING_MESSAGE, {
-      errorCondition1: faker.datatype.number(),
-      errorCondition2: null,
-      errorCondition3: faker.random.word(),
-      successCondition: faker.datatype.json(),
+      errorScenario1: faker.datatype.number(),
+      errorScenario2: null,
+      errorScenario3: faker.random.word(),
+      successScenario1: faker.datatype.json(),
     })
   })
 
@@ -170,69 +170,69 @@ describe("Property Validation Decorators", () => {
     }
 
     validateDecorator(decorator, STRING_MATCHING_REGEX_MESSAGE(regex), {
-      errorCondition1: "not-hello",
-      errorCondition2: null,
-      errorCondition3: faker.address.city(),
-      successCondition: "hello",
+      errorScenario1: "not-hello",
+      errorScenario2: null,
+      errorScenario3: faker.address.city(),
+      successScenario1: "hello",
     })
   })
 
   describe("NumericString", () => {
     validateDecorator(NumericString, NUMERIC_STRING_MESSAGE, {
-      errorCondition1: faker.random.word(),
-      errorCondition2: null,
-      errorCondition3: "5522d",
-      successCondition: "456250",
+      errorScenario1: faker.random.word(),
+      errorScenario2: null,
+      errorScenario3: "5522d",
+      successScenario1: "456250",
     })
   })
 
   describe("AlphanumericString", () => {
     validateDecorator(AlphanumericString, ALPHANUMERIC_STRING_MESSAGE, {
-      errorCondition1: faker.datatype.json(),
-      errorCondition2: null,
-      errorCondition3: faker.datatype.number(),
-      successCondition: "456250as",
+      errorScenario1: "!456250as",
+      errorScenario2: "456250as!",
+      errorScenario3: faker.datatype.number(),
+      successScenario1: "456250as",
     })
   })
 
   describe("Integer", () => {
     validateDecorator(Integer, INTEGER_MESSAGE, {
-      errorCondition1: faker.datatype.json(),
-      errorCondition2: null,
-      errorCondition3: faker.datatype.float(),
-      successCondition: 12,
+      errorScenario1: faker.datatype.json(),
+      errorScenario2: null,
+      errorScenario3: faker.datatype.float(),
+      successScenario1: 12,
     })
   })
 
   describe("CustomValidation - Combining validations", () => {
-    const successCondition = (value: any): boolean =>
+    const successScenario1 = (value: any): boolean =>
       isNotJsonString(value) && isString(value)
 
     function decorator(error?: any) {
-      return CustomValidation(successCondition, error)
+      return CustomValidation(successScenario1, error)
     }
 
     validateDecorator(decorator, CUSTOM_VALIDATION_MESSAGE, {
-      errorCondition1: faker.datatype.number(),
-      errorCondition2: null,
-      errorCondition3: faker.datatype.json(),
-      successCondition: faker.random.word(),
+      errorScenario1: faker.datatype.number(),
+      errorScenario2: null,
+      errorScenario3: faker.datatype.json(),
+      successScenario1: faker.random.word(),
     })
   })
 
   describe("CustomValidation - Creating own validation", () => {
     const errorStr = faker.random.word()
-    const successCondition = (value: any): boolean => !(value === errorStr)
+    const successScenario1 = (value: any): boolean => !(value === errorStr)
 
     function decorator(error?: any) {
-      return CustomValidation(successCondition, error)
+      return CustomValidation(successScenario1, error)
     }
 
     validateDecorator(decorator, CUSTOM_VALIDATION_MESSAGE, {
-      errorCondition1: errorStr,
-      errorCondition2: errorStr,
-      errorCondition3: errorStr,
-      successCondition: undefined,
+      errorScenario1: errorStr,
+      errorScenario2: errorStr,
+      errorScenario3: errorStr,
+      successScenario1: undefined,
     })
   })
 })
