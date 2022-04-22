@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Test
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -66,8 +66,8 @@ jobs:
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
-  sample:
-    name: TestSample
+  sample_prod:
+    name: Test v1.0.0
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -83,9 +83,39 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        working-directory: ./sample
+        working-directory: ./sample/v1.0.0
         run: npm install
 
       - name: Unit tests
-        working-directory: ./sample
+        working-directory: ./sample/v1.0.0
+        run: npm run test
+
+  sample_next:
+    name: Test next version
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16]
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Node.js (v${{ matrix.node-version }})
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Build next version library
+        run: npm run build
+      
+      - name: Remove husky
+        run: sed -i '/husky/d' dist/package.json
+
+      - name: Install dependencies
+        working-directory: ./sample/next
+        run: npm install
+
+      - name: Unit tests
+        working-directory: ./sample/next
         run: npm run test
