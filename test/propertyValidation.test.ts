@@ -17,6 +17,7 @@ import {
   NUMERIC_STRING_MESSAGE,
   STRING_MATCHING_REGEX_MESSAGE,
   STRING_TYPE_MESSAGE,
+  VALID_MESSAGE,
 } from "../src/property/messages"
 import {
   AlphanumericString,
@@ -36,6 +37,7 @@ import {
   NumericString,
   StringMatchingRegex,
   StringType,
+  Valid,
 } from "../src"
 import { isNotJsonString, isString } from "../src/property/conditions"
 
@@ -244,6 +246,33 @@ describe("Property Validation Decorators", () => {
         faker.datatype.json(),
         faker.name.firstName(),
       ],
+    })
+  })
+
+  describe("Valid", () => {
+    class AnyClass {
+      @NumberType()
+      anyField?: any
+
+      constructor({ anyField }: any) {
+        this.anyField = anyField
+      }
+    }
+
+    function decorator(error?: any) {
+      return Valid(AnyClass, error)
+    }
+
+    validateDecorator(decorator, VALID_MESSAGE(AnyClass.name), {
+      errorScenario1: { anyField: faker.datatype.boolean() },
+      errorScenario2: null,
+      errorScenario3: [
+        faker.random.word(),
+        faker.datatype.json(),
+        faker.datatype.number(),
+      ],
+      errorScenario4: { anyField: faker.datatype.json() },
+      successScenario1: { anyField: faker.datatype.number() },
     })
   })
 

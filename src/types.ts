@@ -10,3 +10,7 @@ export type ValidationError =
   | Object
   | Record<string, any>
   | ((className: string, field: string) => string)
+
+export interface Constructable<T> {
+  new (...args: any): T
+}

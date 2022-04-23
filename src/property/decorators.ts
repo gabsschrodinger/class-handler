@@ -16,6 +16,7 @@ import {
   NUMERIC_STRING_MESSAGE,
   STRING_MATCHING_REGEX_MESSAGE,
   STRING_TYPE_MESSAGE,
+  VALID_MESSAGE,
 } from "./messages"
 import {
   isNotInArray,
@@ -34,9 +35,10 @@ import {
   isNumberGreaterThan,
   isNumberLessThan,
   isArrayOf,
+  isValid,
 } from "./conditions"
 
-import { ValidationError } from "../types"
+import { Constructable, ValidationError } from "../types"
 import { validationDecorator } from "./utils"
 
 /**
@@ -188,6 +190,20 @@ export function ArrayOf(
   return validationDecorator(
     isArrayOf(successCondition),
     error ?? ARRAY_OF_MESSAGE
+  )
+}
+
+/**
+ * Property validation decorator.
+ * Validate if a property value is a valid schema of another class when the class is instantiated.
+ */
+export function Valid<T>(
+  ValidationClass: Constructable<T>,
+  error?: ValidationError
+) {
+  return validationDecorator(
+    isValid<T>(ValidationClass),
+    error ?? VALID_MESSAGE(ValidationClass.name)
   )
 }
 

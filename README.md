@@ -107,6 +107,7 @@ console.log(exception) // { errorMessages: ["some field should be a string type"
 | AlphanumericString  | not being a string or being a string with non-alphanumeric chars                                     |
 | Integer             | not being a number or not being an integer                                                           |
 | ArrayOf             | not being an array or having any array item that does't pass the success condition (first parameter) |
+| Valid               | not being a valid schema for the received class (validated with class-handler, first parameter)      |
 
 ### CustomValidation decorator
 

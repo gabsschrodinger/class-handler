@@ -1,4 +1,6 @@
 import validator from "validator"
+import { validateInstance } from "../class/utils"
+import { Constructable } from "../types"
 
 export function isString(value: any): boolean {
   return typeof value === "string" || value instanceof String
@@ -81,14 +83,27 @@ export function isStringMatchingRegex(regex: RegExp) {
   }
 }
 
-export function isNumericString(value: any) {
+export function isNumericString(value: any): boolean {
   return isStringMatchingRegex(/^\d+$/)(value)
 }
 
-export function isAlphanumericString(value: any) {
+export function isAlphanumericString(value: any): boolean {
   return isStringMatchingRegex(/^[a-z\d]+$/i)(value)
 }
 
-export function isInteger(value: any) {
+export function isInteger(value: any): boolean {
   return isNumber(value) && Number.isInteger(value)
+}
+
+export function isValid<T>(ValidationClass: Constructable<T>) {
+  return function (value: any): boolean {
+    try {
+      const instance = new ValidationClass(value)
+      validateInstance(instance)
+
+      return true
+    } catch (_) {
+      return false
+    }
+  }
 }

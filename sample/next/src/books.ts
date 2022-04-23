@@ -9,7 +9,7 @@ interface BookSchema {
 }
 
 @CatchMany(BAD_REQUEST_ERROR, "messages")
-export class Book {
+class Book {
   @StringType()
   title: string
 
@@ -30,4 +30,6 @@ export class Book {
   }
 }
 
-export const books: Array<Book> = []
+const books: Array<Book> = []
+
+export { Book, books }

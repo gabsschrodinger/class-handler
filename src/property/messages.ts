@@ -53,3 +53,7 @@ export const INTEGER_MESSAGE = (className: string, field: string) =>
 
 export const ARRAY_OF_MESSAGE = (className: string, field: string) =>
   `Field ${field} of class ${className} is not a valid array`
+
+export const VALID_MESSAGE =
+  (validationClass: string) => (className: string, field: string) =>
+    `Field ${field} of class ${className} is not a valid ${validationClass}`
