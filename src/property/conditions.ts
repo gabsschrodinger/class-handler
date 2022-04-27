@@ -107,3 +107,9 @@ export function isValid<T>(ValidationClass: Constructable<T>) {
     }
   }
 }
+
+export function isEnum(o: object) {
+  return function (value: any): boolean {
+    return Object.values(o).includes(value)
+  }
+}

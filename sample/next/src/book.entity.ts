@@ -1,11 +1,16 @@
-import { ArrayOf, CatchMany, isString, StringType } from "class-handler"
+import { ArrayOf, CatchMany, isEnum, StringType } from "class-handler"
 import { BAD_REQUEST_ERROR } from "./error"
+
+enum Genre {
+  HORROR = "Horror",
+  COMEDY = "Comedy",
+}
 
 interface BookSchema {
   title: string
   author: string
   description: string
-  genres: Array<string>
+  genres: Array<Genre>
 }
 
 @CatchMany(BAD_REQUEST_ERROR, "messages")
@@ -19,8 +24,8 @@ class Book {
   @StringType()
   description: string
 
-  @ArrayOf(isString)
-  genres: Array<string>
+  @ArrayOf(isEnum(Genre))
+  genres: Array<Genre>
 
   constructor({ title, author, description, genres }: BookSchema) {
     this.title = title

@@ -5,6 +5,7 @@ import {
   BOOLEAN_TYPE_MESSAGE,
   CUSTOM_VALIDATION_MESSAGE,
   EMAIL_MESSAGE,
+  ENUM_MESSAGE,
   INCLUDED_IN_ARRAY_MESSAGE,
   INTEGER_MESSAGE,
   JSON_STRING_MESSAGE,
@@ -36,6 +37,7 @@ import {
   isNumberLessThan,
   isArrayOf,
   isValid,
+  isEnum,
 } from "./conditions"
 
 import { Constructable, ValidationError } from "../types"
@@ -205,6 +207,14 @@ export function Valid<T>(
     isValid<T>(ValidationClass),
     error ?? VALID_MESSAGE(ValidationClass.name)
   )
+}
+
+/**
+ * Property validation decorator.
+ * Validate if a property value is a valid enum value when the class is instantiated.
+ */
+export function Enum(o: object, error?: ValidationError) {
+  return validationDecorator(isEnum(o), error ?? ENUM_MESSAGE(o))
 }
 
 /**

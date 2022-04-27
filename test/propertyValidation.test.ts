@@ -6,6 +6,7 @@ import {
   BOOLEAN_TYPE_MESSAGE,
   CUSTOM_VALIDATION_MESSAGE,
   EMAIL_MESSAGE,
+  ENUM_MESSAGE,
   INCLUDED_IN_ARRAY_MESSAGE,
   INTEGER_MESSAGE,
   JSON_STRING_MESSAGE,
@@ -26,6 +27,7 @@ import {
   BooleanType,
   CustomValidation,
   Email,
+  Enum,
   IncludedInArray,
   Integer,
   JsonString,
@@ -273,6 +275,24 @@ describe("Property Validation Decorators", () => {
       ],
       errorScenario4: { anyField: faker.datatype.json() },
       successScenario1: { anyField: faker.datatype.number() },
+    })
+  })
+
+  describe("Enum", () => {
+    enum AnyEnum {
+      SOME_VALUE = "some-value",
+    }
+
+    function decorator(error?: any) {
+      return Enum(AnyEnum, error)
+    }
+
+    validateDecorator(decorator, ENUM_MESSAGE(AnyEnum), {
+      errorScenario1: { anyField: faker.datatype.boolean() },
+      errorScenario2: null,
+      errorScenario3: faker.random.word(),
+      errorScenario4: faker.datatype.number(),
+      successScenario1: AnyEnum.SOME_VALUE,
     })
   })
 

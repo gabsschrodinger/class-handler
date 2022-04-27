@@ -1,6 +1,6 @@
 import { validateInstance } from "class-handler"
 import { Request, Response } from "express"
-import { Book, books } from "./books"
+import { Book, books } from "./book.entity"
 import { errorHandler } from "./errorHandler"
 
 export const findBooks = (_request: Request, response: Response) => {
