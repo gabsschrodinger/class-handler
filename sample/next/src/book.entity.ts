@@ -1,7 +1,7 @@
 import { ArrayOf, CatchMany, isEnum, StringType } from "class-handler"
 import { BAD_REQUEST_ERROR } from "./error"
 
-enum Genre {
+export enum Genre {
   HORROR = "Horror",
   COMEDY = "Comedy",
 }

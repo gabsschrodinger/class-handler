@@ -2,6 +2,7 @@ import request from "supertest"
 import express from "express"
 import router from "../src/router"
 import faker from "@faker-js/faker"
+import { Genre } from "../src/book.entity"
 
 const app = express()
 app.use(router)
@@ -9,7 +10,7 @@ app.use(router)
 const title = faker.random.words(3)
 const author = faker.name.firstName()
 const description = faker.random.words(5)
-const genres = [faker.random.word()]
+const genres = [faker.random.objectElement(Genre)]
 
 describe("App", () => {
   it("should return empty array when first calling GET /books", async () => {
@@ -35,7 +36,7 @@ describe("App", () => {
       .expect(400)
       .then((response) => {
         expect(response.body).toEqual({
-          messages: ["Field genres of class Book is not a valid array"],
+          messages: ["Field genres of Book is not a valid array"],
           statusCode: 400,
         })
       })

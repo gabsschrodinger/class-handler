@@ -139,12 +139,15 @@ export const validateDecorator = (
       }
     }
 
+    let someInstance: SomeClass
+
     try {
-      new SomeClass(successScenario1)
+      someInstance = new SomeClass(successScenario1)
     } catch (error) {
-      exception = error
+      exception = error ?? "some-error"
     }
 
     expect(exception).toBeUndefined()
+    expect(someInstance).toEqual({ someField: successScenario1 })
   })
 }
