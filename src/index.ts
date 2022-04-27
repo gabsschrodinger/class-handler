@@ -1,5 +1,5 @@
 export * from "./property/decorators"
 export * from "./class/decorators"
 export { validationDecorator } from "./property/utils"
-export { validateInstance } from "./class/utils"
+export { validateInstance, getInstanceErrors } from "./class/utils"
 export * from "./property/conditions"
