@@ -42,6 +42,19 @@ describe("App", () => {
       })
   })
 
+  it("should not accumulate error messages", async () => {
+    await request(app)
+      .post("/books")
+      .send({ title, author, description })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({
+          messages: ["Field genres of Book is not a valid array"],
+          statusCode: 400,
+        })
+      })
+  })
+
   it("should return the existing book when calling GET /books", async () => {
     await request(app)
       .get("/books")
