@@ -29,3 +29,5 @@ try {
   console.log(error) // { messages: ["Field name of Person must be a string"] }
 }
 ```
+
+The `StringType` decorator default error message is `Field [field name] of [class name] must be a string`.

@@ -69,3 +69,5 @@ class Owner {
   }
 }
 ```
+
+The `Valid` decorator default error message is `Field [field name] of [class name] is not a valid [validation class name]`.
