@@ -32,7 +32,7 @@ The library provides a few ready-to-use property decorators, as well as tools to
 
 - If you don't use the CatchMany class decorator, your instances will be validated by your decorators as soon as you instantiate them, throwing the first error that is found.
 
-- If you use property decorators along with the CatchMany decorator, your errors will be stored within each instance, and the errors will only be thrown when you call the function "validateInstance" for each given instance.
+- If you use property decorators along with the CatchMany decorator, your errors will be stored within each instance. You can access the instance errors on demand, throwing them by calling the function `validateInstance`, or returning the errors by using the function `getInstanceErrors`.
 
 ### Example 1: without CatchMany
 
@@ -108,6 +108,7 @@ console.log(exception) // { errorMessages: ["some field should be a string type"
 | Integer             | not being a number or not being an integer                                                           |
 | ArrayOf             | not being an array or having any array item that does't pass the success condition (first parameter) |
 | Valid               | not being a valid schema for the received class (validated with class-handler, first parameter)      |
+| Enum                | not being a value from a given enum (first parameter)                                                |
 
 ### CustomValidation decorator
 
