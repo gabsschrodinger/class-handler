@@ -31,7 +31,7 @@ export function isBoolean(value: any): boolean {
 }
 
 export function isNotNull(value: any): boolean {
-  return !(value === null || value === undefined || value === "")
+  return value !== null && value !== undefined && value !== ""
 }
 
 export function isObject(value: any): boolean {
@@ -92,7 +92,7 @@ export function isAlphanumericString(value: any): boolean {
 }
 
 export function isInteger(value: any): boolean {
-  return isNumber(value) && Number.isInteger(value)
+  return Number.isInteger(value)
 }
 
 export function isValid<T>(ValidationClass: Constructable<T>) {

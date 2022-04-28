@@ -147,6 +147,31 @@ describe("Catch Many", () => {
       expect(anyFieldProp.configurable).toBeTruthy()
       expect(anyFieldProp.writable).toBeTruthy()
     })
+
+    it("should not throw errors when instance don't have error model", () => {
+      class SomeClass {
+        @NotNull("not null")
+        @StringType("string type")
+        anyField: any
+
+        constructor(anyField?: any) {
+          this.anyField = anyField
+        }
+      }
+
+      const instance = new SomeClass("some-text")
+
+      let exception: any
+
+      try {
+        validateInstance(instance)
+      } catch (_error) {
+        exception = "error"
+      }
+
+      expect(exception).toBeUndefined()
+      expect(instance.anyField).toEqual("some-text")
+    })
   })
 
   describe("get instance errors", () => {
