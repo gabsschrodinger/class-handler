@@ -3,7 +3,7 @@ import { validateInstance } from "../class/utils"
 import { Constructable } from "../types"
 
 export function isString(value: any): boolean {
-  return typeof value === "string" || value instanceof String
+  return typeof value === "string"
 }
 
 export function isEmail(value: any): boolean {
@@ -11,7 +11,7 @@ export function isEmail(value: any): boolean {
 }
 
 export function isNumber(value: any): boolean {
-  return typeof value === "number" || value instanceof Number
+  return typeof value === "number"
 }
 
 export function isNumberGreaterThan(threshold: number) {
@@ -27,7 +27,7 @@ export function isNumberLessThan(threshold: number) {
 }
 
 export function isBoolean(value: any): boolean {
-  return typeof value === "boolean" || value instanceof Boolean
+  return typeof value === "boolean"
 }
 
 export function isNotNull(value: any): boolean {
