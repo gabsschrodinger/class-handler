@@ -2,7 +2,7 @@ import faker from "@faker-js/faker"
 import { ValidationError } from "../../src/types"
 import * as utils from "../../src/property/utils"
 
-interface TestConditions {
+interface TestScenarios {
   errorScenario1: any
   errorScenario2: any
   errorScenario3: any
@@ -19,7 +19,7 @@ export const validateDecorator = (
     errorScenario3,
     errorScenario4,
     successScenario1,
-  }: TestConditions
+  }: TestScenarios
 ) => {
   it("should throw specified error object when it receives an object", () => {
     let exception: any

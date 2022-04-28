@@ -1,4 +1,5 @@
 import faker from "@faker-js/faker"
+import * as utils from "../src/object"
 import {
   getProp,
   getPropValue,
@@ -10,6 +11,10 @@ import {
 import { PropConfig } from "../src/types"
 
 describe("Object handling utils", () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   const someObject = {
     someField: faker.random.word(),
   }
@@ -27,15 +32,21 @@ describe("Object handling utils", () => {
 
   describe("get prop value", () => {
     it("should return value of get prop result", () => {
-      const result = getPropValue(someObject, FIELD)
-      const propValue = getProp(someObject, FIELD).value
+      const getPropSpy = jest.spyOn(utils, "getProp")
 
-      expect(result).toEqual(propValue)
+      const result = getPropValue(someObject, FIELD)
+
+      expect(getPropSpy).toHaveBeenCalledWith(someObject, FIELD)
+      expect(result).toEqual(someObject.someField)
     })
 
     it("should return undefined when prop is undefined", () => {
-      const result = getPropValue(someObject, FIELD + faker.random.word())
+      const getPropSpy = jest.spyOn(utils, "getProp")
 
+      const randomKey = FIELD + faker.random.word()
+      const result = getPropValue(someObject, randomKey)
+
+      expect(getPropSpy).toHaveBeenCalledWith(someObject, randomKey)
       expect(result).toBeUndefined()
     })
   })

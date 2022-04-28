@@ -47,6 +47,10 @@ import { validateDecorator } from "./helpers/propertyValidation"
 import { ValidationError } from "../src/types"
 
 describe("Property Validation Decorators", () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   describe("NotNull", () => {
     validateDecorator(NotNull, NOT_NULL_MESSAGE, {
       errorScenario1: undefined,
