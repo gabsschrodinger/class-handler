@@ -22,14 +22,12 @@ function processPropValidations(
   const errorsArray: Array<string> = []
 
   propValidations.forEach((validation) => {
-    try {
-      validation(propValue)
-    } catch (exception) {
-      if (catchMany && exception instanceof Error) {
-        errorsArray.push(exception.message)
-      } else {
-        throw exception
-      }
+    const exception = validation(propValue)
+
+    if (catchMany && exception instanceof Error) {
+      errorsArray.push(exception.message)
+    } else if (exception) {
+      throw exception
     }
   })
 
@@ -95,19 +93,16 @@ function initValidation(prototypeTarget: Object, key: string) {
   setPropSetter(prototypeTarget, key, newSetter)
 }
 
-function baseValidation(
-  successCondition: boolean,
-  error: Object | string | Error
-): void {
+function baseValidation(successCondition: boolean, error: ValidationError) {
   if (successCondition) {
-    return
+    return undefined
   }
 
   if (typeof error === "string" || error instanceof String) {
-    throw new Error(error as string)
+    return new Error(error as string)
   }
 
-  throw error
+  return error
 }
 
 function addValidation(
