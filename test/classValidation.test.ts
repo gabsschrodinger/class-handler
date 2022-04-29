@@ -102,6 +102,7 @@ describe("Catch Many", () => {
         }
       }
 
+      const instance = new SomeClass()
       const anotherInstance = new SomeClass("haha")
       new SomeClass()
 
@@ -114,6 +115,14 @@ describe("Catch Many", () => {
       }
 
       expect(exception).toBeUndefined()
+
+      try {
+        validateInstance(instance)
+      } catch (error) {
+        exception = error
+      }
+
+      expect(exception?.messages?.length).toEqual(2)
     })
 
     it("should not throw errors when decorators dont find any", () => {

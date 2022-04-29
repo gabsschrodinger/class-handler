@@ -35,26 +35,30 @@ function processPropValidations(
 }
 
 function addErrorToMessages(instance: Object, errorMessages: Array<string>) {
-  let instanceError: Record<string, any> = getPropValue(
+  const instanceError: Record<string, any> = getPropValue(
     instance,
     INSTANCE_ERROR
   )
-
   const field: string = instance.constructor.prototype[MESSAGES_FIELD_PROP]
-
-  if (!instanceError) {
-    const errorClone = Object.assign(
-      Object.create(
-        Object.getPrototypeOf(instance.constructor.prototype[ERROR_PROP])
-      ),
-      instance.constructor.prototype[ERROR_PROP]
-    )
-    setPropValue(instance, INSTANCE_ERROR, errorClone)
-
-    instanceError = getPropValue(instance, INSTANCE_ERROR)
+  const errorObj: Record<string, any> = {
+    ...instance.constructor.prototype[ERROR_PROP],
   }
 
-  instanceError[field].push(...errorMessages)
+  const oldMessages: Array<string> = instanceError
+    ? instanceError[field]
+    : errorObj[field]
+  const newMessages = [...oldMessages, ...errorMessages]
+
+  const newErrorObj = { ...errorObj, [field]: newMessages }
+  Object.setPrototypeOf(
+    newErrorObj,
+    instance.constructor.prototype[ERROR_PROP].constructor.prototype
+  )
+
+  setPropValue(instance, INSTANCE_ERROR, newErrorObj, {
+    configurable: true,
+    writable: true,
+  })
 }
 
 function getValidationSetter(

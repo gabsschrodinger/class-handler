@@ -102,7 +102,16 @@ export const validateDecorator = (
 
   it("should throw given error instance when it receives one", () => {
     let exception: any
-    const errorInstance = new Error(faker.random.word())
+
+    class CustomError extends Error {
+      isCustom: boolean
+
+      constructor(message: string) {
+        super(message)
+        this.isCustom = true
+      }
+    }
+    const errorInstance = new CustomError(faker.random.word())
     const decoratorSpy = jest.spyOn(utils, "validationDecorator")
 
     class SomeClass {
@@ -121,6 +130,7 @@ export const validateDecorator = (
     }
 
     expect(exception).toEqual(errorInstance)
+    expect(exception instanceof CustomError).toBeTruthy()
     expect(decoratorSpy).toHaveBeenCalledWith(
       expect.any(Function),
       errorInstance
