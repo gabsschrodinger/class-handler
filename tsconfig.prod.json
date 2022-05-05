@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": false
   },
   "exclude": ["dist", "node_modules", "test/**", "sample"]
 }

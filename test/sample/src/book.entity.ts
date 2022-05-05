@@ -1,4 +1,4 @@
-import { ArrayOf, CatchMany, isEnum, StringType } from "class-handler"
+import { ArrayOf, CatchMany, isEnum, StringType } from "./../../../src"
 import { BAD_REQUEST_ERROR } from "./error"
 
 export enum Genre {

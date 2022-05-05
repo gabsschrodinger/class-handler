@@ -1,4 +1,4 @@
-import { validateInstance } from "class-handler"
+import { validateInstance } from "./../../../src"
 import { Request, Response } from "express"
 import { Book, books } from "./book.entity"
 import { errorHandler } from "./errorHandler"
