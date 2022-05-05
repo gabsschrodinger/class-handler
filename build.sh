@@ -9,4 +9,4 @@ cp package.json ./dist
 cp package-lock.json ./dist
 cp README.md ./dist
 
-sed -i '/husky/d' dist/package.json
+sed -i '/husky install/d' dist/package.json
