@@ -10,7 +10,7 @@ app.use(router)
 const title = faker.random.words(3)
 const author = faker.name.firstName()
 const description = faker.random.words(5)
-const genres = [faker.random.objectElement(Genre)]
+const genres = [faker.helpers.objectValue(Genre)]
 
 describe("App", () => {
   it("should return empty array when first calling GET /books", async () => {
