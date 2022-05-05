@@ -7,7 +7,6 @@ const config = {
     "!src/types.ts",
     "!src/index.ts",
   ],
-  modulePathIgnorePatterns: ["<rootDir>/sample/"],
 }
 
 module.exports = config

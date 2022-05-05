@@ -91,7 +91,7 @@ console.log(exception) // { errorMessages: ["some field should be a string type"
 
 | Decorator                                                                                                   | Error condition                                                                                      |
 | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| NotNull                                                                                                     | null, undefined or empty string                                                                      |
+| [NotNull](https://github.com/gabsschrodinger/class-handler/blob/main/docs/NotNull.md)                       | null, undefined or empty string                                                                      |
 | Email                                                                                                       | not matching the email string pattern (string@string.string)                                         |
 | [StringType](https://github.com/gabsschrodinger/class-handler/blob/main/docs/StringType.md)                 | not being a string type according to typescript/javascript                                           |
 | NumberType                                                                                                  | not being a number type according to typescript/javascript                                           |
