@@ -2,7 +2,7 @@ export const NOT_NULL_MESSAGE = (className: string, field: string) =>
   `Field ${field} of ${className} can't be null`
 
 export const EMAIL_MESSAGE = (className: string, field: string) =>
-  `Field ${field} of ${className} is must be a valid email`
+  `Field ${field} of ${className} must be a valid email`
 
 export const STRING_TYPE_MESSAGE = (className: string, field: string) =>
   `Field ${field} of ${className} must be a string`
