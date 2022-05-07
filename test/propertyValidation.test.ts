@@ -18,7 +18,7 @@ import {
   NUMERIC_STRING_MESSAGE,
   STRING_MATCHING_REGEX_MESSAGE,
   STRING_TYPE_MESSAGE,
-  VALID_MESSAGE,
+  NESTED_OBJECT_MESSAGE,
 } from "../src/property/messages"
 import {
   AlphanumericString,
@@ -39,7 +39,7 @@ import {
   NumericString,
   StringMatchingRegex,
   StringType,
-  Valid,
+  NestedObject,
 } from "../src"
 import { isNotJsonString, isString } from "../src/property/conditions"
 
@@ -266,10 +266,10 @@ describe("Property Validation Decorators", () => {
     }
 
     function decorator(error?: any) {
-      return Valid(AnyClass, error)
+      return NestedObject(AnyClass, error)
     }
 
-    validateDecorator(decorator, VALID_MESSAGE(AnyClass.name), {
+    validateDecorator(decorator, NESTED_OBJECT_MESSAGE(AnyClass.name), {
       errorScenario1: { anyField: faker.datatype.boolean() },
       errorScenario2: null,
       errorScenario3: [

@@ -95,10 +95,10 @@ export function isInteger(value: any): boolean {
   return Number.isInteger(value)
 }
 
-export function isValid<T>(ValidationClass: Constructable<T>) {
+export function isNestedObject<T>(ObjectConstructor: Constructable<T>) {
   return function (value: any): boolean {
     try {
-      const instance = new ValidationClass(value)
+      const instance = new ObjectConstructor(value)
       validateInstance(instance)
 
       return true

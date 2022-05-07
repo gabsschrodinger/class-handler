@@ -2,7 +2,7 @@
 
 ## `@StringType(error?: ValidationError)`
 
-The `StringType` decorator will validate if a field is a valid string. For example, consider you have the following `Person` class:
+The `StringType` decorator will validate if a field is a string. For example, consider you have the following `Person` class:
 
 ```typescript
 import { StringType, validateInstance } from "class-handler"

@@ -2,7 +2,7 @@
 
 ## `@NumberType(error?: ValidationError)`
 
-The `NumberType` decorator will validate if a field is a valid number. For example, consider you have the following `Person` class:
+The `NumberType` decorator will validate if a field is a number. For example, consider you have the following `Person` class:
 
 ```typescript
 import { StringType, NumberType, validateInstance } from "class-handler"

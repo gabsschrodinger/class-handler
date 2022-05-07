@@ -2,7 +2,7 @@
 
 ## `@BooleanType(error?: ValidationError)`
 
-The `BooleanType` decorator will validate if a field is a valid boolean. For example, consider you have the following `Person` class:
+The `BooleanType` decorator will validate if a field is a boolean. For example, consider you have the following `Person` class:
 
 ```typescript
 import { StringType, BooleanType, validateInstance } from "class-handler"
