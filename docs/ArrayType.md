@@ -30,7 +30,7 @@ try {
 
   validateInstance(person)
 } catch (error) {
-  console.log(error) // { messages: ["Field name of Person must be an array"] }
+  console.log(error) // { messages: ["Field friends of Person must be an array"] }
 }
 ```
 

@@ -30,8 +30,8 @@ try {
 
   validateInstance(person)
 } catch (error) {
-  console.log(error) // { messages: ["Field name of Person must be a numeric string"] }
+  console.log(error) // { messages: ["Field phone of Person must be a numeric string"] }
 }
 ```
 
-The `StringType` decorator default error message is `Field [field name] of [class name] must be a numeric string`.
+The `NumericString` decorator default error message is `Field [field name] of [class name] must be a numeric string`.

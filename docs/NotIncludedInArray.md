@@ -35,7 +35,7 @@ try {
   exception = error
 }
 
-console.log(exception) // Error: Field size of Product must be an item of array small,medium,large
+console.log(exception) // Error: Field name of Product can't be an item of array sucks,idiot
 ```
 
-The `IncludedInArray` decorator default error message is `Field [field name] of [class name] can't be an item of array [array items]`.
+The `NotIncludedInArray` decorator default error message is `Field [field name] of [class name] can't be an item of array [array items]`.

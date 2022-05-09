@@ -30,7 +30,7 @@ try {
 
   validateInstance(person)
 } catch (error) {
-  console.log(error) // { messages: ["Field name of Person must be a number"] }
+  console.log(error) // { messages: ["Field age of Person must be a number"] }
 }
 ```
 

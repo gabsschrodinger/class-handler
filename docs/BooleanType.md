@@ -30,7 +30,7 @@ try {
 
   validateInstance(person)
 } catch (error) {
-  console.log(error) // { messages: ["Field name of Person must be a boolean"] }
+  console.log(error) // { messages: ["Field isRegistered of Person must be a boolean"] }
 }
 ```
 
