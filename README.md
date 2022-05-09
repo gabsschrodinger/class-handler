@@ -108,7 +108,7 @@ console.log(exception) // { errorMessages: ["some field should be a string type"
 | [`@Integer(error?: ValidationError)`](https://github.com/gabsschrodinger/class-handler/blob/main/docs/Integer.md)                                             | not being a number or not being an integer                                                           |
 | ArrayOf                                                                                                                                                       | not being an array or having any array item that does't pass the success condition (first parameter) |
 | [`@NestedObject(ObjectConstructor: Constructable, error?: ValidationError)`](https://github.com/gabsschrodinger/class-handler/blob/main/docs/NestedObject.md) | not being a valid object (validated with class-handler, first parameter)                             |
-| Enum                                                                                                                                                          | not being a value from a given enum (first parameter)                                                |
+| [`@Enum(o: object, error?: ValidationError)`](https://github.com/gabsschrodinger/class-handler/blob/main/docs/Enum.md)                                        | not being a value from a given enum (first parameter)                                                |
 
 ### CustomValidation decorator
 

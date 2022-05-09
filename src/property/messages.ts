@@ -59,6 +59,6 @@ export const NESTED_OBJECT_MESSAGE =
     `Field ${field} of ${className} is not a valid ${validationClass}`
 
 export const ENUM_MESSAGE = (o: object) => (className: string, field: string) =>
-  `Field ${field} of ${className} is not a valid values (${Object.values(
+  `Field ${field} of ${className} is not a valid value (${Object.values(
     o
   ).join()})`
