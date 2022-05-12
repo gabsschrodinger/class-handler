@@ -5,7 +5,12 @@
 The `NumberType` decorator will validate if a field is a number. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, NumberType, validateInstance } from "class-handler"
+import {
+  StringType,
+  NumberType,
+  validateInstance,
+  CatchMany,
+} from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

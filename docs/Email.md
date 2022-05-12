@@ -5,7 +5,7 @@
 The `Email` decorator will validate if a field is a string and a valid email. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, Email, validateInstance } from "class-handler"
+import { StringType, Email, validateInstance, CatchMany } from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

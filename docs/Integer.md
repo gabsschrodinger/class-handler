@@ -5,7 +5,7 @@
 The `Integer` decorator will validate if a field is an integer. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, Integer, validateInstance } from "class-handler"
+import { StringType, Integer, validateInstance, CatchMany } from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

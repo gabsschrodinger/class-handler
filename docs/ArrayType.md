@@ -5,7 +5,12 @@
 The `ArrayType` decorator will validate if a field is an array. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, ArrayType, validateInstance } from "class-handler"
+import {
+  StringType,
+  ArrayType,
+  validateInstance,
+  CatchMany,
+} from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

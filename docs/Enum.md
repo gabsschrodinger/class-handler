@@ -45,4 +45,4 @@ try {
 console.log(exception) // Error: Field size of Product is not a valid value (small,medium,large)
 ```
 
-The `Enum` decorator default error message is `Field [field name] of [class name] is not a valid value [enum items]`.
+The `Enum` decorator default error message is `Field [field name] of [class name] is not a valid value ([enum items])`.

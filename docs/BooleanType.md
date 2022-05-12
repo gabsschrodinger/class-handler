@@ -5,7 +5,12 @@
 The `BooleanType` decorator will validate if a field is a boolean. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, BooleanType, validateInstance } from "class-handler"
+import {
+  StringType,
+  BooleanType,
+  validateInstance,
+  CatchMany,
+} from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

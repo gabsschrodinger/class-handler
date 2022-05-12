@@ -5,7 +5,7 @@
 The `NotNull` decorator will validate if a field is not null (null, undefined or empty string). For example, consider you have the following `Person` class:
 
 ```typescript
-import { NotNull, validateInstance } from "class-handler"
+import { NotNull, validateInstance, CatchMany } from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

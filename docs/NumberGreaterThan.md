@@ -5,7 +5,12 @@
 The `NumberGreaterThan` decorator will validate if a field is a number greater than the given `threshold` value. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, NumberGreaterThan, validateInstance } from "class-handler"
+import {
+  StringType,
+  NumberGreaterThan,
+  validateInstance,
+  CatchMany,
+} from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

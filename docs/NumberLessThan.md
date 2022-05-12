@@ -5,7 +5,12 @@
 The `NumberLessThan` decorator will validate if a field is a number less than the given `threshold` value. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, NumberLessThan, validateInstance } from "class-handler"
+import {
+  StringType,
+  NumberLessThan,
+  validateInstance,
+  CatchMany,
+} from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

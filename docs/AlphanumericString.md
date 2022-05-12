@@ -5,7 +5,7 @@
 The `AlphanumericString` decorator will validate if a field is a string with only alphanumeric characters. For example, consider you have the following `Person` class:
 
 ```typescript
-import { AlphanumericString, validateInstance } from "class-handler"
+import { AlphanumericString, validateInstance, CatchMany } from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

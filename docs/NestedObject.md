@@ -1,11 +1,11 @@
-# Valid
+# NestedObject
 
-## `@Valid(ValidationClass: Constructable, error?: ValidationError)`
+## `@NestedObject(ObjectConstructor: Constructable, error?: ValidationError)`
 
-The `Valid` decorator allows you to validate nested objects. For example, let's say you have a product object/entity, and inside the prodcut you have an owner object/entity. You can create a class for `Product` and another one for `Owner`, like the following:
+The `NestedObject` decorator allows you to validate nested objects. For example, let's say you have a product object/entity, and inside the prodcut you have an owner object/entity. You can create a class for `Product` and another one for `Owner`, like the following:
 
 ```typescript
-import { StringType, Email, NumberType, Valid } from "class-handler"
+import { StringType, Email, NumberType, NestedObject } from "class-handler"
 
 interface OwnerSchema {
   name: string
@@ -32,13 +32,13 @@ interface ProductSchema {
 }
 
 class Product {
-  @String()
+  @StringType()
   name: string
 
   @NumberType()
   price: number
 
-  @Valid(Owner)
+  @NestedObject(Owner)
   owner: Owner
 
   constructor({ name, price, owner }: ProductSchema) {
@@ -70,4 +70,4 @@ class Owner {
 }
 ```
 
-The `Valid` decorator default error message is `Field [field name] of [class name] is not a valid [validation class name]`.
+The `NestedObject` decorator default error message is `Field [field name] of [class name] is not a valid [validation class name]`.

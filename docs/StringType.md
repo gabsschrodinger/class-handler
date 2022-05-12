@@ -5,7 +5,7 @@
 The `StringType` decorator will validate if a field is a string. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, validateInstance } from "class-handler"
+import { StringType, validateInstance, CatchMany } from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {

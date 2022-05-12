@@ -5,7 +5,12 @@
 The `NumericString` decorator will validate if a field is a string with only numeric characters. For example, consider you have the following `Person` class:
 
 ```typescript
-import { StringType, NumericString, validateInstance } from "class-handler"
+import {
+  StringType,
+  NumericString,
+  validateInstance,
+  CatchMany,
+} from "class-handler"
 
 @CatchMany({ messages: [] }, "messages")
 class Person {
