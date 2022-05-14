@@ -22,10 +22,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
   test:
     name: Test
@@ -44,13 +44,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Unit tests
-        run: npm run coverage
+        run: yarn coverage
 
       - name: Publish coverage
         uses: codecov/codecov-action@v2
@@ -61,7 +61,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Mutation tests
-        run: npm run mutation
+        run: yarn mutation
         if: ${{ matrix.node-version == 14 }}
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
