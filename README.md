@@ -4,7 +4,6 @@
 [![codecov](https://codecov.io/gh/gabsschrodinger/class-handler/branch/main/graph/badge.svg)](https://codecov.io/gh/gabsschrodinger/class-handler)
 [![npm downloads](https://badgen.net/npm/dm/class-handler)](https://www.npmjs.com/package/class-handler)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fgabsschrodinger%2Fclass-handler%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/gabsschrodinger/class-handler/main)
-[![CI](https://github.com/gabsschrodinger/class-handler/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/gabsschrodinger/class-handler/actions/workflows/ci.yml)
 [![install size](https://packagephobia.com/badge?p=class-handler)](https://packagephobia.com/result?p=class-handler)
 
 </div>

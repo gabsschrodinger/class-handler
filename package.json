@@ -15,8 +15,7 @@
     "build": "sh build.sh",
     "prepare": "husky install",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "sample:next:run": "npm run --prefix sample/next start"
+    "lint:fix": "eslint --fix ."
   },
   "author": "Gabriel Fernandes Ribeiro",
   "license": "MIT",
