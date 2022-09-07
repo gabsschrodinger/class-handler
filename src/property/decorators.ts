@@ -199,12 +199,12 @@ export function ArrayOf(
  * Property validation decorator.
  * Validate if a property value is a valid schema of another class when the class is instantiated.
  */
-export function NestedObject<T>(
+export function NestedObject<T extends object>(
   ObjectConstructor: Constructable<T>,
   error?: ValidationError
 ) {
   return validationDecorator(
-    isNestedObject<T>(ObjectConstructor),
+    isNestedObject(ObjectConstructor),
     error ?? NESTED_OBJECT_MESSAGE(ObjectConstructor.name)
   )
 }

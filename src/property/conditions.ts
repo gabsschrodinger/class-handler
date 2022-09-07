@@ -95,7 +95,9 @@ export function isInteger(value: any): boolean {
   return Number.isInteger(value)
 }
 
-export function isNestedObject<T>(ObjectConstructor: Constructable<T>) {
+export function isNestedObject<T extends object>(
+  ObjectConstructor: Constructable<T>
+) {
   return function (value: any): boolean {
     try {
       const instance = new ObjectConstructor(value)
