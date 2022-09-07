@@ -14,3 +14,5 @@ export type ValidationError =
 export interface Constructable<T> {
   new (...args: any): T
 }
+
+export type Condition = (value: unknown) => boolean

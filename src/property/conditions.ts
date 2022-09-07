@@ -1,104 +1,110 @@
 import validator from "validator"
 import { validateInstance } from "../class/utils"
-import { Constructable } from "../types"
+import { Condition, Constructable } from "../types"
 
-export function isString(value: any): boolean {
+export function isString(value: unknown): value is string {
   return typeof value === "string"
 }
 
-export function isEmail(value: any): boolean {
-  return isString(value) && validator.isEmail(value)
+export function isEmail(value: unknown): value is string {
+  if (isString(value)) {
+    return validator.isEmail(value)
+  }
+  return false
 }
 
-export function isNumber(value: any): boolean {
+export function isNumber(value: unknown): value is number {
   return typeof value === "number"
 }
 
 export function isNumberGreaterThan(threshold: number) {
-  return function (value: any): boolean {
+  return function (value: unknown): value is number {
     return isNumber(value) && value > threshold
   }
 }
 
 export function isNumberLessThan(threshold: number) {
-  return function (value: any): boolean {
+  return function (value: unknown): value is number {
     return isNumber(value) && value < threshold
   }
 }
 
-export function isBoolean(value: any): boolean {
+export function isBoolean(value: unknown): value is boolean {
   return typeof value === "boolean"
 }
 
-export function isNotNull(value: any): boolean {
+export function isNotNull(value: unknown): boolean {
   return value !== null && value !== undefined && value !== ""
 }
 
-export function isObject(value: any): boolean {
+export function isObject(value: unknown): value is object {
   return typeof value === "object" && !Array.isArray(value) && value !== null
 }
 
-export function isNotObject(value: any): boolean {
+export function isNotObject(value: unknown): boolean {
   return !isObject(value)
 }
 
-export function isNotJsonString(value: any): boolean {
+export function isJsonString(value: unknown): value is string {
   try {
-    const parsed = JSON.parse(value)
-    return isNotObject(parsed)
-  } catch (_error) {
-    return true
+    if (isString(value)) {
+      return isObject(JSON.parse(value))
+    }
+
+    return false
+  } catch (_) {
+    return false
   }
 }
 
-export function isJsonString(value: any): boolean {
-  return !isNotJsonString(value)
+export function isNotJsonString(value: unknown): boolean {
+  return !isJsonString(value)
 }
 
-export function isArray(value: any): boolean {
+export function isArray(value: unknown): value is Array<unknown> {
   return Array.isArray(value)
 }
 
-export function isArrayOf(itemsSuccessCondition: (item: any) => boolean) {
-  return function (value: any) {
+export function isArrayOf(itemsSuccessCondition: Condition) {
+  return function (value: unknown) {
     return isArray(value) && value.every(itemsSuccessCondition)
   }
 }
 
-export function isNotInArray(arr: Array<any>) {
-  return function (value: any): boolean {
-    return !arr.includes(value)
+export function isNotInArray(array: Array<unknown>) {
+  return function (value: unknown): boolean {
+    return !array.includes(value)
   }
 }
 
-export function isInArray(arr: Array<any>) {
-  return function (value: any): boolean {
-    return arr.includes(value)
+export function isInArray(array: Array<unknown>) {
+  return function (value: unknown): boolean {
+    return array.includes(value)
   }
 }
 
 export function isStringMatchingRegex(regex: RegExp) {
-  return function (value: any): boolean {
+  return function (value: unknown): value is string {
     return isString(value) && regex.test(value)
   }
 }
 
-export function isNumericString(value: any): boolean {
+export function isNumericString(value: unknown): value is string {
   return isStringMatchingRegex(/^\d+$/)(value)
 }
 
-export function isAlphanumericString(value: any): boolean {
+export function isAlphanumericString(value: unknown): value is string {
   return isStringMatchingRegex(/^[a-z\d]+$/i)(value)
 }
 
-export function isInteger(value: any): boolean {
+export function isInteger(value: unknown): value is number {
   return Number.isInteger(value)
 }
 
 export function isNestedObject<T extends object>(
   ObjectConstructor: Constructable<T>
 ) {
-  return function (value: any): boolean {
+  return function (value: unknown): boolean {
     try {
       const instance = new ObjectConstructor(value)
       validateInstance(instance)
@@ -111,7 +117,7 @@ export function isNestedObject<T extends object>(
 }
 
 export function isEnum(o: object) {
-  return function (value: any): boolean {
+  return function (value: unknown): boolean {
     return Object.values(o).includes(value)
   }
 }
