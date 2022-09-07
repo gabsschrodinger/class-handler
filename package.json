@@ -8,7 +8,7 @@
     "url": "https://github.com/gabsschrodinger/class-handler.git"
   },
   "scripts": {
-    "test": "npm run lint && jest",
+    "test": "yarn lint && jest",
     "mutation": "stryker run",
     "coverage": "jest --coverage",
     "build:raw": "tsc --project tsconfig.prod.json",
@@ -20,7 +20,7 @@
   "author": "Gabriel Fernandes Ribeiro",
   "license": "MIT",
   "devDependencies": {
-    "@faker-js/faker": "^6.3.1",
+    "@faker-js/faker": "^7.5.0",
     "@stryker-mutator/core": "^6.0.2",
     "@stryker-mutator/jest-runner": "^6.0.2",
     "@stryker-mutator/typescript-checker": "^6.0.2",
@@ -58,6 +58,6 @@
     "class handler"
   ],
   "lint-staged": {
-    "*.{js,ts}": "npm run lint:fix"
+    "*.{js,ts}": "yarn lint:fix"
   }
 }

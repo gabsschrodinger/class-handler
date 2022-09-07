@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker"
+import { faker } from "@faker-js/faker"
 import * as utils from "../src/object"
 import {
   getProp,

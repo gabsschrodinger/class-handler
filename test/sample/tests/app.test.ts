@@ -1,7 +1,7 @@
 import request from "supertest"
 import express from "express"
 import router from "../src/router"
-import faker from "@faker-js/faker"
+import { faker } from "@faker-js/faker"
 import { Genre } from "../src/book.entity"
 
 const app = express()

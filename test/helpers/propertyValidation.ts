@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker"
+import { faker } from "@faker-js/faker"
 import { ValidationError } from "../../src/types"
 import * as utils from "../../src/property/utils"
 
